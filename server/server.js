@@ -1,19 +1,41 @@
+require('dotenv').config();
 var express = require('express');
+var app = express();
 var bodyParser = require('body-parser');
 
-var nfl = require('./routes/nfl-data');
-var users = require('./routes/user-data')
+var passport = require('./strategies/sql.localstrategy');
+var sessionConfig = require('./modules/session.config');
 
-var app = express();
-app.use(bodyParser.urlencoded({extended: true}));
+// Route includes
+var indexRouter = require('./routes/index.router');
+var userRouter = require('./routes/user.router');
+var registerRouter = require('./routes/register.router');
+
+// var port = process.env.PORT || 5000;
+var port = process.env.PORT;
+
+// Body parser middleware
 app.use(bodyParser.json());
-app.use(express.static('server/public'));
-var port = process.env.PORT || 5000;
+app.use(bodyParser.urlencoded({extended: true}));
 
-app.use('/nfl',nfl);
-app.use('/users', users)
+// Serve back static files
+app.use(express.static('./server/public'));
 
+// Passport Session Configuration
+app.use(sessionConfig);
 
-app.listen(port, function(){
-    console.log('listening on port 5000');
+// Start up passport sessions
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Routes
+app.use('/register', registerRouter);
+app.use('/user', userRouter);
+
+// Catch all bucket, must be last!
+app.use('/', indexRouter);
+
+// Listen //
+app.listen(port, function(req, res){
+   console.log('Listening on port:', port);
 });

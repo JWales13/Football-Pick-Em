@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- style -->
+    <link rel="stylesheet" href="vendors/css/bootstrap.css">
+    <link rel="stylesheet" href="styles/style.css">
+
+    <!-- angular and client -->
+    <script src="/vendors/angular.min.js"></script>
+    <script src="/vendors/angular-route.min.js"></script>
+    <script src="/scripts/client.js"></script>
+
+    <!-- controllers -->
+    <script src="scripts/controllers/user.controller.js" charset="utf-8"></script>
+    <script src="scripts/controllers/login.controller.js" charset="utf-8"></script>
+    <script src="scripts/controllers/info.controller.js" charset="utf-8"></script>
+
+    <!-- services -->
+    <script src="scripts/services/user.service.js" charset="utf-8"></script>
+    
+
+    <title>Football Pick 'Em</title>
+</head>
+<body ng-app="FootballApp">
+    <header ng-include="'/views/partials/header.html'"></header>
+    
+          <main ng-view></main>
+    
+</body>
+</html>
