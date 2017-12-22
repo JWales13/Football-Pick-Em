@@ -1,5 +1,5 @@
 myApp.service('MatchupService', function($http, $location){
-    console.log('UserService Loaded');
+    console.log('MatchupService Loaded');
     var vm = this;
     vm.matchupData = { list: [] };
     vm.newMatchup = {};

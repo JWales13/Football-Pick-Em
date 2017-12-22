@@ -4,3 +4,7 @@
     <h1 id="Welcome" class="lead">Welcome, {{uc.userObject.userName}}!</h1>
     <button class="btn btn-default" ng-click="uc.userService.logout()">Log Out</button>
 </div>
+
+<div>
+    <button ng-if="uc.userObject.username = 'player1'" ng-click="uc.populateDB(vm.matchupData.list.weeks)">Populate Matchups for Season</button>
+</div>

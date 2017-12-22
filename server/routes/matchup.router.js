@@ -25,7 +25,7 @@ router.post('/', function (req, res) {
         else {
 
             client.query(`INSERT INTO matchup (id, home, away, date, week, home_points, away_points)
-            VALUES ($1, (SELECT "id" FROM "team" WHERE name = $2), (SELECT "id" FROM "team" WHERE name = $3), $4, $5, $6, $7);`, [req.body.id, req.body.home, req.body.away, req.body.date, req.body.week, req.body.home_points, req.body.away_points], function (errorMakingQuery, result) {
+            VALUES ($1, (SELECT team.id FROM team WHERE team.name = $2), (SELECT team.id FROM team WHERE team.name = $3), $4, $5, $6, $7);`, [req.body.id, req.body.home, req.body.away, req.body.date, req.body.week, req.body.home_points, req.body.away_points], function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
                         console.log('error making query', errorMakingQuery);
