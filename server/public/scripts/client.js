@@ -22,9 +22,9 @@ myApp.config(function($routeProvider, $locationProvider) {
         }
       }
     })
-    .when('/info', {
-      templateUrl: '/views/templates/info.html',
-      controller: 'InfoController',
+    .when('/picks', {
+      templateUrl: '/views/templates/picks.html',
+      controller: 'PicksController',
       resolve: {
         getuser : function(UserService){
           return UserService.getuser();

@@ -6,10 +6,12 @@ var bodyParser = require('body-parser');
 var passport = require('./strategies/sql.localstrategy');
 var sessionConfig = require('./modules/session.config');
 
+
 // Route includes
 var indexRouter = require('./routes/index.router');
 var userRouter = require('./routes/user.router');
 var registerRouter = require('./routes/register.router');
+var matchups = require('./routes/matchup.router');
 
 // var port = process.env.PORT || 5000;
 var port = process.env.PORT;
@@ -31,6 +33,7 @@ app.use(passport.session());
 // Routes
 app.use('/register', registerRouter);
 app.use('/user', userRouter);
+app.use('/matchups', matchups)
 
 // Catch all bucket, must be last!
 app.use('/', indexRouter);
