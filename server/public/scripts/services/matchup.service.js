@@ -87,3 +87,15 @@ myApp.service('MatchupService', function($http, $location){
     // vm.populateDB(vm.matchupData.list.weeks);
 
 });
+
+
+
+vm.getWeeksMatchups = function () {
+    $http({
+        method: 'GET',
+        url: '/picks',
+    }).then(function (response) {
+        vm.matchupData.list = response.data;
+        console.log('data ', vm.matchupData.list.weeks);
+    });
+}
