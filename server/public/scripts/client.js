@@ -24,7 +24,7 @@ myApp.config(function($routeProvider, $locationProvider) {
     })
     .when('/picks', {
       templateUrl: '/views/templates/picks.html',
-      controller: 'PicksController',
+      controller: 'PicksController as vm',
       resolve: {
         getuser : function(UserService){
           return UserService.getuser();

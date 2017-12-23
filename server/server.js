@@ -14,7 +14,7 @@ var registerRouter = require('./routes/register.router');
 var matchups = require('./routes/matchup.router');
 var picks = require('./routes/picks.router');
 
-// var port = process.env.PORT || 5000;
+
 var port = process.env.PORT;
 
 // Body parser middleware

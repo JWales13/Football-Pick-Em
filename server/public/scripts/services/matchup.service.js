@@ -3,9 +3,9 @@ myApp.service('MatchupService', function($http, $location){
     var vm = this;
     vm.matchupData = { list: [] };
     vm.newMatchup = {};
-
-
-
+    vm.dbMatchupData = { list: [] };
+    vm.selectedWeek = '';
+    
 
 
     vm.getMatchups = function () {
@@ -16,7 +16,7 @@ myApp.service('MatchupService', function($http, $location){
             vm.matchupData.list = response.data;
             console.log('data ', vm.matchupData.list.weeks);
         });
-    }
+    };//end get matchups
 
 
 
@@ -83,19 +83,10 @@ myApp.service('MatchupService', function($http, $location){
         }) //end then
     } //end post
 
-    vm.getMatchups();
-    // vm.populateDB(vm.matchupData.list.weeks);
 
-});
+   
+
+}); //end service
 
 
 
-vm.getWeeksMatchups = function () {
-    $http({
-        method: 'GET',
-        url: '/picks',
-    }).then(function (response) {
-        vm.matchupData.list = response.data;
-        console.log('data ', vm.matchupData.list.weeks);
-    });
-}
