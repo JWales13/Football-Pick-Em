@@ -46,9 +46,9 @@
       </thead>
       <tbody>
         <tr ng-repeat="game in vm.dbMatchupData.list">
-          <td>{{game.home}}</td>
-          <td> {{game.away}} </td>
-          <td>  </td>
+          <td> <button>{{game.team1}}</button> </td>
+          <td> <button>{{game.team2}}</button> </td>
+          <td>{{game.home_spread}}  </td>
 
         </tr>
       </tbody>
