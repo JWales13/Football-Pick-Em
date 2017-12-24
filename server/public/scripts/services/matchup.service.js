@@ -4,7 +4,7 @@ myApp.service('MatchupService', function($http, $location){
     vm.matchupData = { list: [] };
     vm.newMatchup = {};
     vm.dbMatchupData = { list: [] };
-    vm.selectedWeek = '';
+    vm.selectedWeek = {};
     
 
 

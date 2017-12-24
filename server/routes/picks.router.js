@@ -4,16 +4,16 @@ var request = require('request');
 var pool = require('../modules/pool');
 
 
-router.get('/', function (req, res) {
-    
-    console.log(req.body);
+router.post('/', function (req, res) {
+    selectedWeek = req.body;
+    console.log('selectedWeek.week:',selectedWeek.week);
     pool.connect(function (errorConnectingToDatabase, client, done) {
         if (errorConnectingToDatabase) {
             console.log('error', errorConnectingToDatabase);
             res.sendStatus(500);
         } else {
-            console.log(req.body)
-            client.query( 'SELECT * FROM matchup WHERE matchup.week = 1', 
+            console.log('selectedWeek:',selectedWeek)
+            client.query( 'SELECT * FROM matchup WHERE matchup.week = $1;', [selectedWeek.week],
             function (errorMakingDatabaseQuery, result) {
                 done();
                 if (errorMakingDatabaseQuery) {
