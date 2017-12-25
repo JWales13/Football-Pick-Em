@@ -31,7 +31,7 @@ myApp.service('PickService', function($http, $location){
     };//end get all matchup data
 
 
-    vm.postPicks = function (newPick) {
+    vm.postPick = function (newPick) {
         console.log('in postPicks', newPick);
         $http({
             method: 'POST',

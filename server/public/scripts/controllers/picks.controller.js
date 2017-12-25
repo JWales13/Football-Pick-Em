@@ -7,7 +7,7 @@ myApp.controller('PicksController', ['UserService', 'PickService', function(User
     vm.dbWeekMatchupData = PickService.dbWeekMatchupData;
     vm.getAllMatchupData = PickService.getAllMatchupData;
     vm.newPick = PickService.newPick;
-    vm.postPicks = PickService.postPicks;
+    vm.postPick = PickService.postPick;
     
 
 

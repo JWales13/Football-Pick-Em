@@ -61,8 +61,8 @@ router.post('/post', function (req, res) {
         }
         else {
 
-            client.query(`INSERT INTO picks (matchup, team, user)
-            VALUES ($1, $2);`, [req.body.matchup, req.body.team, req.user.id], function (errorMakingQuery, result) {
+            client.query(`INSERT INTO picks (matchup, team, user, home_team_spread)
+            VALUES ($1, $2, $3, $4);`, [req.body.matchup, req.body.team, req.user.id, req.body.home_team_spread], function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
                         console.log('error making query', errorMakingQuery);
