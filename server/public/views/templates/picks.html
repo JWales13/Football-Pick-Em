@@ -32,23 +32,23 @@
   <div>
     <table>
       <thead>
-        <th>
-          <td>
+        <tr>
+          <th>
             Home Team
           </td>
-          <td>
+          <th>
             Away Team
           </td>
-          <td>
+          <th>
             Home Team Spread
           </td>
-        </th>
+        </tr>
       </thead>
       <tbody>
         <tr ng-repeat="game in vm.dbMatchupData.list">
           <td> <button>{{game.team1}}</button> </td>
           <td> <button>{{game.team2}}</button> </td>
-          <td>{{game.home_spread}}  </td>
+          <td> <input ng-model="vm.matchup.home_spread" placeholder="Spread for Home Team">  </td>
 
         </tr>
       </tbody>

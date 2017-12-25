@@ -4,9 +4,10 @@ myApp.controller('PicksController', ['UserService', 'PickService', function(User
     vm.getWeekMatchups = PickService.getWeekMatchups;
     vm.selectedWeek = PickService.selectedWeek;
     vm.dbMatchupData = PickService.dbMatchupData;
+    vm.dbWeekMatchupData = PickService.dbWeekMatchupData;
 
 
 
-    
+    vm.getAllMatchupData();
     
   }]);
