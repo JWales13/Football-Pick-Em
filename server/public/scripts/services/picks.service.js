@@ -5,6 +5,7 @@ myApp.service('PickService', function($http, $location){
     vm.selectedWeek = {};
     vm.dbWeekMatchupData = { list: [] };
     vm.newPick = {};
+    vm.dbAllMatchupData = { list: [] };
 
 
     vm.getWeekMatchups = function (selectedWeek) {
@@ -15,7 +16,7 @@ myApp.service('PickService', function($http, $location){
             data: selectedWeek
         }).then(function (response) {
             vm.dbMatchupData.list = response.data;
-            console.log('getting back from DB', vm.dbWeekMatchupData.list);
+            console.log('got matchups', vm.dbWeekMatchupData.list);
         });
     };//end gets weeks matchups
 
@@ -24,14 +25,14 @@ myApp.service('PickService', function($http, $location){
             method: 'GET',
             url: '/picks'
         }).then(function (response) {
-            vm.dbMatchupData.list = response.data;
-            console.log('getting back from DB', vm.dbMatchupData.list);
+            vm.dbAllMatchupData.list = response.data;
+            console.log('getting back from DB', vm.dbAllMatchupData.list);
         });
     };//end get all matchup data
 
 
     vm.postPicks = function (newPick) {
-        console.log('in getWeekMatchups', selectedWeek);
+        console.log('in postPicks', newPick);
         $http({
             method: 'POST',
             url: '/picks/post',

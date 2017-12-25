@@ -13,7 +13,7 @@ router.post('/', function (req, res) {
             res.sendStatus(500);
         } else {
             console.log('selectedWeek:',selectedWeek)
-            client.query( `SELECT t1.name as team1, t2.name as team2 FROM matchup t
+            client.query( `SELECT t1.name as home, t2.name as away, t.id FROM matchup t
             INNER JOIN team t1 on t.home = t1.id
             INNER JOIN team t2 on t.away = t2.id
             WHERE t.week = $1;`, [selectedWeek.week],
@@ -62,7 +62,7 @@ router.post('/post', function (req, res) {
         else {
 
             client.query(`INSERT INTO picks (matchup, team, user)
-            VALUES ($1, $2);`, [req.body.matchup, req.body.team, req.user], function (errorMakingQuery, result) {
+            VALUES ($1, $2);`, [req.body.matchup, req.body.team, req.user.id], function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
                         console.log('error making query', errorMakingQuery);
