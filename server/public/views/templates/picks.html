@@ -48,12 +48,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="game in vm.dbMatchupData.list">
-          <td><p ng-model="vm.newPick.id">{{game.id}}</p></td>
-          <td> <button ng-model="vm.newPick.team" ng-click"vm.postPick(vm.newPick)"> {{game.home}} </button> </td>
-          <td><button ng-model="vm.newPick.team" ng-click="vm.postPick(vm.newPick)" >{{game.away}} </button></td>
-          <td> <input ng-model="vm.newPick.home_team_spread" placeholder="Spread for Home Team">  </td>
-
+        <tr ng-repeat="game in vm.dbWeekMatchupData.list">
+          <td><input type="radio" ng-model="vm.newPick.matchup"  value="{{game.id}}">{{game.id}}</td>
+          <td> <input type="radio" ng-model="vm.newPick.team" value="{{game.home}}" > {{game.home}}  </td>
+          <td><input type="radio" ng-model="vm.newPick.team" value="{{game.away}}"  >{{game.away}} </td>
+          <td> <input ng-if="vm.userObject.is_Commissioner == true" ng-model="vm.newPick.home_team_spread" placeholder="Spread for Home Team"> 
+          <p ng-if="vm.userObject.is_Commissioner == false" ng-model="vm.newPick.home_team_spread"> {{game.home_team_spread}} </p> </td>
+          <td><button ng-if="vm.userObject.is_Commissioner == true" ng-click=vm.addSpread(vm.newSpread)> Add Spread</button> </td>
+          <td><button ng-click="vm.postPick(vm.newPick)">Submit Pick</button></td>
+         
         </tr>
       </tbody>
     </table>

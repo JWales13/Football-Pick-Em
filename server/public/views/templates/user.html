@@ -5,6 +5,67 @@
     <button class="btn btn-default" ng-click="uc.userService.logout()">Log Out</button>
 </div>
 
+
+
 <div>
-    <button ng-if="uc.userObject.username = 'player1'" ng-click="uc.populateDB(vm.matchupData.list.weeks)">Populate Matchups for Season</button>
+    <button ng-model="uc.userObject.is_Commissioner" ng-if="uc.userObject.is_Commissioner == true" ng-click="vm.populateDB(vm.matchupData.list.weeks)">Populate Matchups for Season</button>
 </div>
+
+<div ng-model="uc.userObject.is_Commissioner"  ng-if="uc.userObject.is_Commissioner == true"> 
+        <select name="week"  ng-model='vm.selectedWeek.week'>
+          <option value="">--Select Week--</option>
+          <option value= '1' >--Week 1--</option>
+          <option value= '2' >--Week 2--</option>
+          <option value= '3' >--Week 3--</option>
+          <option value= '4' >--Week 4--</option>
+          <option value= '5' >--Week 5--</option>
+          <option value= '6' >--Week 6--</option>
+          <option value= '7' >--Week 7--</option>
+          <option value= '8' >--Week 8--</option>
+          <option value= '9' >--Week 9--</option>
+          <option value= '10' >--Week 10--</option>
+          <option value= '11' >--Week 11--</option>
+          <option value= '12' >--Week 12--</option>
+          <option value= '13' >--Week 13--</option>
+          <option value= '14' >--Week 14--</option>
+          <option value= '15' >--Week 15--</option>
+          <option value= '16' >--Week 16--</option>
+          <option value= '17' >--Week 17--</option>
+        </select>
+        <button ng-click="uc.getWeekMatchups(vm.selectedWeek)">Get Week's Matchups</button>
+      
+
+
+
+
+        <table>
+          <thead>
+            <tr>
+              <th>
+                Matchup ID
+              </th>
+              <th>
+                Home Team
+              </th>
+              <th>
+                Away Team
+              </th>
+              <th>
+                Home Team Spread
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="game in uc.dbWeekMatchupData.list">
+              <td><p>{{game.id}}</p></td>
+              <td>  {{game.home}}  </td>
+              <td>{{game.away}} </td>
+              <td> <input  placeholder="Spread for Home Team">  </td>
+              <td><button  ng-click=vm.addSpread(vm.newSpread)> Add Spread</button> </td>
+              
+             
+            </tr>
+          </tbody>
+        </table>
+    
+      </div>
