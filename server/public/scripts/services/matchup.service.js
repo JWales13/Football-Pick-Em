@@ -90,8 +90,8 @@ myApp.service('MatchupService', function($http, $location){
     vm.addSpread = function (newSpread) {
         console.log('in addSpread', newSpread);
         $http({
-            method: 'POST',
-            url: '/picks/spread',
+            method: 'PUT',
+            url: '/matchups/spread' + newSpread.id,
             data: newSpread
         }).then(function (response) {
             console.log('response', response);

@@ -11,7 +11,9 @@
     <button ng-model="uc.userObject.is_Commissioner" ng-if="uc.userObject.is_Commissioner == true" ng-click="vm.populateDB(vm.matchupData.list.weeks)">Populate Matchups for Season</button>
 </div>
 
-<div ng-model="uc.userObject.is_Commissioner"  ng-if="uc.userObject.is_Commissioner == true"> 
+<button  ng-model="collapsed" ng-click="collapsed=!collapsed">Click here to Add Spreads</button>
+
+<div ng-show="collapsed" ng-model="uc.userObject.is_Commissioner"  ng-if="uc.userObject.is_Commissioner == true"> 
         <select name="week"  ng-model='vm.selectedWeek.week'>
           <option value="">--Select Week--</option>
           <option value= '1' >--Week 1--</option>
@@ -36,7 +38,7 @@
       
 
 
-
+        
 
         <table>
           <thead>
@@ -57,13 +59,12 @@
           </thead>
           <tbody>
             <tr ng-repeat="game in uc.dbWeekMatchupData.list">
-              <td><p>{{game.id}}</p></td>
+              <td><input type="radio" ng-model="vm.newSpread.id" value="{{game.id}}" >{{game.id}}</td>
               <td>  {{game.home}}  </td>
               <td>{{game.away}} </td>
-              <td> <input  placeholder="Spread for Home Team">  </td>
-              <td><button  ng-click=vm.addSpread(vm.newSpread)> Add Spread</button> </td>
-              
-             
+              <td> <input type="text" ng-model="vm.newSpread.home_team_spread" placeholder="Spread for Home Team">  </td>
+              <td> <button  ng-click=uc.addSpread(vm.newSpread)> Add Spread</button> </td>
+
             </tr>
           </tbody>
         </table>

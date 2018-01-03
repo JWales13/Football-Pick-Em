@@ -40,7 +40,30 @@ router.post('/', function (req, res) {
 })//end router post
 
 
-
+router.put('/spread:id', function (req, res) {
+    var newSpreadId = req.params.id;
+    var newSpread = req.body.home_team_spread;
+    console.log('spread:',newSpread);
+    console.log('id:', newSpreadId);
+    pool.connect(function (errorConnectingToDatabase, client, done) {
+        if (errorConnectingToDatabase) {
+            console.log('error', errorConnectingToDatabase);
+            res.sendStatus(500);
+        } else {
+            
+            client.query( `UPDATE matchup SET home_team_spread = $1 WHERE matchup.id = $2`, [newSpread,newSpreadId],
+            function (errorMakingDatabaseQuery, result) {
+                done();
+                if (errorMakingDatabaseQuery) {
+                    console.log('error', errorMakingDatabaseQuery);
+                    res.sendStatus(500);
+                } else {
+                    res.send(result.rows);
+                }
+            });
+        }
+    });
+});
 
 
 

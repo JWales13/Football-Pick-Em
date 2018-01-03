@@ -68,8 +68,9 @@ router.post('/post', function (req, res) {
         }
         else {
 
-            client.query(`INSERT INTO picks ("matchup", "team", "user")
-            VALUES ($1, $2, $3);`, [newPick.matchup, newPick.team, newPick.user], function (errorMakingQuery, result) {
+            client.query(`INSERT INTO picks ( "team", "matchup", "user")
+            SELECT team.id as teamPick, $2, $3 FROM team WHERE team.name = $1`, 
+            [newPick.team, newPick.matchup, newPick.user], function (errorMakingQuery, result) {
                     done();
                     if (errorMakingQuery) {
                         console.log('error making query', errorMakingQuery);
@@ -85,28 +86,7 @@ router.post('/post', function (req, res) {
 
 
 
-router.post('/spread', function (req, res) {
-    newSpread = req.body;
-    console.log('spread:',newSpread);
-    pool.connect(function (errorConnectingToDatabase, client, done) {
-        if (errorConnectingToDatabase) {
-            console.log('error', errorConnectingToDatabase);
-            res.sendStatus(500);
-        } else {
-            
-            client.query( `INSERT INTO matchup ("home_team_spread") VALUES ($1)`, [newSpread],
-            function (errorMakingDatabaseQuery, result) {
-                done();
-                if (errorMakingDatabaseQuery) {
-                    console.log('error', errorMakingDatabaseQuery);
-                    res.sendStatus(500);
-                } else {
-                    res.send(result.rows);
-                }
-            });
-        }
-    });
-});
+
 
 
 
