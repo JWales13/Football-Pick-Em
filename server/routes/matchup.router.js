@@ -65,6 +65,53 @@ router.put('/spread', function (req, res) {
     });
 });
 
+router.post('/winners', function (req, res) {
+    selectedWeek = req.body;
+    console.log('selectedWeek.week:',selectedWeek.week);
+    pool.connect(function (errorConnectingToDatabase, client, done) {
+        if (errorConnectingToDatabase) {
+            console.log('error', errorConnectingToDatabase);
+            res.sendStatus(500);
+        } else {
+            console.log('selectedWeek:',selectedWeek)
+            client.query( `SELECT * FROM matchup WHERE week = $1`, [selectedWeek.week],
+            function (errorMakingDatabaseQuery, result) {
+                done();
+                if (errorMakingDatabaseQuery) {
+                    console.log('error', errorMakingDatabaseQuery);
+                    res.sendStatus(500);
+                } else {
+                    res.send(result.rows);
+                }
+            });
+        }
+    });
+});
+
+
+router.put('/winners', function (req, res) {
+   newWinner = req.body.winner_id;
+   newWinnerId = req.body.id;
+    pool.connect(function (errorConnectingToDatabase, client, done) {
+        if (errorConnectingToDatabase) {
+            console.log('error', errorConnectingToDatabase);
+            res.sendStatus(500);
+        } else {
+            
+            client.query( `UPDATE matchup SET winner_id = $1 WHERE matchup.id = $2`, [newWinner,newWinnerId],
+            function (errorMakingDatabaseQuery, result) {
+                done();
+                if (errorMakingDatabaseQuery) {
+                    console.log('error', errorMakingDatabaseQuery);
+                    res.sendStatus(500);
+                } else {
+                    res.send(result.rows);
+                }
+            });
+        }
+    });
+});
+
 
 
 module.exports = router;

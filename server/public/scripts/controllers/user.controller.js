@@ -9,7 +9,7 @@ myApp.controller('UserController',['UserService','MatchupService',  function(Use
     vm.dbWeekMatchupData = MatchupService.dbWeekMatchupData;
     vm.addSpread = MatchupService.addSpread;
     vm.newSpread = MatchupService.newSpread;
-
+    vm.calcWeekWinners= MatchupService.calcWeekWinners;
 
 
     

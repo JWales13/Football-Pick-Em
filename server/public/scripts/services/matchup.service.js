@@ -3,11 +3,10 @@ myApp.service('MatchupService', function($http, $location){
     var vm = this;
     vm.matchupData = { list: [] };
     vm.newMatchup = {};
-    // vm.dbAllMatchupData = { list: [] };
     vm.selectedWeek = {};
     vm.dbWeekMatchupData = { list: [] };
-    // vm.dbMatchupData = { list: [] };
     vm.newSpread = {};
+    vm.dbWeekMatchDataWinners = { list: [] };
     
 
 
@@ -113,6 +112,63 @@ myApp.service('MatchupService', function($http, $location){
             console.log('got matchups', vm.dbWeekMatchupData.list);
         });
     };//end gets weeks matchups
+
+
+    vm.calcWeekWinners = function (selectedWeek) {
+        console.log('in calcWinners', selectedWeek);
+        $http({
+            method: 'POST',
+            url: '/matchups/winners',
+            data: selectedWeek
+        }).then(function (response) {
+            vm.dbWeekMatchDataWinners.list = response.data;
+            console.log('got matchups for winners calc', vm.dbWeekMatchDataWinners.list);
+        
+        angular.forEach (vm.dbWeekMatchDataWinners.list, function(game,key){
+            if ((game.home_points + parseInt(game.home_team_spread)) > (game.away_points)) {
+                winnerObject = {
+                    id: game.id,
+                    winner_id: game.home
+                }
+                $http({
+                            method: 'PUT',
+                            url: '/matchups/winners',
+                            data: winnerObject
+                        }).then(function (response) {
+                            console.log('home team beat the spread');
+                        })
+            }//end if
+            else if ((game.home_points + parseInt(game.home_team_spread)) < (game.away_points)) {
+                winnerObject = {
+                    id: game.id,
+                    winner_id: game.away
+                }
+                $http({
+                    method: 'PUT',
+                    url: '/matchups/winners',
+                    data: winnerObject
+                }).then(function (response) {
+                    console.log('away team beat the spread');
+                })
+            }//end else if
+            else {
+                winnerObject = {
+                    id: game.id,
+                    winner_id: null
+                }
+                $http({
+                    method: 'PUT',
+                    url: '/matchups/winners',
+                    data: winnerObject
+                }).then(function (response) {
+                    console.log('this was a push');
+                })
+            }//end else
+        }) //end for each winners  
+        
+    });//end .then for calcWinners
+        
+    };//end calc winners
 
 
    
