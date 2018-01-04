@@ -48,11 +48,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="game in vm.dbWeekMatchupData.list">
-          <td><input type="radio" ng-model="vm.newPick.matchup"  value="{{game.id}}">{{game.id}}</td>
+        <tr ng-repeat="game in vm.dbWeekMatchupData.list | orderBy: 'id'">
+          <td><input type="hidden" ng-model="vm.newPick.matchup"  value="{{game.id}}" ng-init="vm.newPick.matchup=game.id">{{game.id}}</td>
           <td> <input type="radio" ng-model="vm.newPick.team" value="{{game.home}}" > {{game.home}}  </td>
           <td><input type="radio" ng-model="vm.newPick.team" value="{{game.away}}"  >{{game.away}} </td>
-          <td> <input type="radio" ng-model="vm.newPick.home_team_spread" value="{{game.home_team_spread}}"> {{game.home_team_spread}}</td>
+          <td> <input type="hidden" ng-model="vm.newPick.home_team_spread" value="{{game.home_team_spread}}" ng-init="vm.newPick.home_team_spread=game.home_team_spread"> {{game.home_team_spread}}</td>
           <td><button ng-click="vm.postPick(vm.newPick)">Submit Pick</button></td>
          
         </tr>
