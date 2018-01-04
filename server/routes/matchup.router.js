@@ -40,8 +40,8 @@ router.post('/', function (req, res) {
 })//end router post
 
 
-router.put('/spread:id', function (req, res) {
-    var newSpreadId = req.params.id;
+router.put('/spread', function (req, res) {
+    var newSpreadId = req.body.id;
     var newSpread = req.body.home_team_spread;
     console.log('spread:',newSpread);
     console.log('id:', newSpreadId);

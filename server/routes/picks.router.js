@@ -13,7 +13,7 @@ router.post('/', function (req, res) {
             res.sendStatus(500);
         } else {
             console.log('selectedWeek:',selectedWeek)
-            client.query( `SELECT home_team_spread, t1.name as home, t2.name as away, t.id FROM matchup t
+            client.query( `SELECT home_team_spread, date, t1.name as home, t2.name as away, t.id FROM matchup t
             INNER JOIN team t1 on t.home = t1.id
             INNER JOIN team t2 on t.away = t2.id
             WHERE t.week = $1;`, [selectedWeek.week],

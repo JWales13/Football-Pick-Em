@@ -36,10 +36,41 @@
         </select>
         <button ng-click="uc.getWeekMatchups(vm.selectedWeek)">Get Week's Matchups</button>
       
+        <input type="text" ng-model="vm.newSpread.id" placeholder="Matchup ID" >
+        <input type="text" ng-model="vm.newSpread.home_team_spread" placeholder="Spread for Home Team">
+        <button  ng-click=uc.addSpread(vm.newSpread)> Add Spread</button> 
 
-
+        <table>
+            <thead>
+              <tr>
+                <th>
+                  Matchup ID
+                </th>
+                <th>
+                  Home Team
+                </th>
+                <th>
+                  Away Team
+                </th>
+                <th>
+                  Home Team Spread
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="game in uc.dbWeekMatchupData.list | orderBy: 'date' ">
+                <td><p>{{game.id}}</p></td>
+                <td>  {{game.home}}  </td>
+                <td>{{game.away}} </td>
+                <td> <p> {{game.home_team_spread}} </p>  </td>
+                <td> {{game.date| date:'fullDate'}} </td>
+                
+  
+              </tr>
+            </tbody>
+          </table>
         
-
+<!-- 
         <table>
           <thead>
             <tr>
@@ -67,6 +98,6 @@
 
             </tr>
           </tbody>
-        </table>
+        </table> -->
     
       </div>

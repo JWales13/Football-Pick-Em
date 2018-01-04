@@ -91,10 +91,13 @@ myApp.service('MatchupService', function($http, $location){
         console.log('in addSpread', newSpread);
         $http({
             method: 'PUT',
-            url: '/matchups/spread' + newSpread.id,
+            url: '/matchups/spread', /*+ newSpread.id,*/
             data: newSpread
         }).then(function (response) {
             console.log('response', response);
+            // vm.getWeekMatchups();
+            vm.newSpread.id = '';
+            vm.newSpread.home_team_spread = '';
         });
     };//end addSpread  
 
