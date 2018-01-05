@@ -12,7 +12,7 @@
     <button ng-model="uc.userObject.is_Commissioner" ng-if="uc.userObject.is_Commissioner == true" ng-click="vm.populateDB(vm.matchupData.list.weeks)">Populate Matchups for Season</button>
 
 
-<button  ng-model="collapsed" ng-click="collapsed=!collapsed">Click here to Add Spreads</button>
+<button ng-hide="displayed" ng-model="collapsed" ng-click="collapsed=!collapsed">Toggle Spreads Menu</button>
 
 <div ng-show="collapsed" > 
         <select name="week"  ng-model='vm.selectedWeek.week'>
@@ -70,7 +70,7 @@
         </div><!--end spread div-->
 
 
-        <button  ng-model="displayed" ng-click="displayed=!displayed">Calculate game winners</button>
+        <button ng-hide="collapsed" ng-model="displayed" ng-click="displayed=!displayed">Toggle Game Winners Menu</button>
 
 <div ng-show="displayed" > 
         <select name="week"  ng-model='vm.selectedWeek.week'>
