@@ -29,35 +29,14 @@
 </div>
 
 
-  <div>
-    <table>
-      <thead>
-        <tr>
-          <th>
-            Matchup ID
-          </th>
-          <th>
-            Home Team
-          </th>
-          <th>
-            Away Team
-          </th>
-          <th>
-            Home Team Spread
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="game in vm.dbWeekMatchupData.list | orderBy: 'id'">
-          <td><input type="hidden" ng-model="vm.newPick.matchup"  value="{{game.id}}" ng-init="vm.newPick.matchup=game.id">{{game.id}}</td>
-          <td> <input type="radio" ng-model="vm.newPick.team" value="{{game.home}}" > {{game.home}}  </td>
-          <td><input type="radio" ng-model="vm.newPick.team" value="{{game.away}}"  >{{game.away}} </td>
-          <td> <input type="hidden" ng-model="vm.newPick.home_team_spread" value="{{game.home_team_spread}}" ng-init="vm.newPick.home_team_spread=game.home_team_spread"> {{game.home_team_spread}}</td>
-          <td><button ng-click="vm.postPick(vm.newPick)">Submit Pick</button></td>
-         
-        </tr>
-      </tbody>
-    </table>
 
-  </div>
+  <div>
+  <form ng-repeat="game in vm.dbWeekMatchupData.list | orderBy: 'id'">
+    <label><input type="radio" ng-model="game.newPick" value="{{game.home}}" ng-click="vm.postPick(game)"> {{game.home}} </label>
+    <label><input type="radio" ng-model="game.newPick" value="{{game.away}}" ng-click="vm.postPick(game)" >{{game.away}}</label>
+    <label>Home Team Spread<p> {{game.home_team_spread}} </p></label>
+    
+  </form>
 </div>
+</div>
+

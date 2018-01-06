@@ -51,15 +51,17 @@ router.post('/', function (req, res) {
 //     });
 // });
 
-router.post('/post', function (req, res) {
-    var newPick = req.body;
+router.post('/post:id', function (req, res) {
+    var newPick = {};
     newPick.user = req.user.id;
+    newPick.matchup = req.params.id;
+    newPick.team = req.body.newPick;
     
 
     console.log('user:', newPick.user);
-    console.log('matchup:', req.body.matchup);
-    console.log('team:', req.body.team);
-    console.log('spread:', req.body.home_team_spread);
+    console.log('matchup:', newPick.matchup);
+    console.log('team:', newPick.team);
+    
     
     pool.connect(function (errorConnectingToDatabase, client, done) {
         if (errorConnectingToDatabase) {

@@ -32,12 +32,12 @@ myApp.service('PickService', function($http, $location){
     // };//end get all matchup data
 
 
-    vm.postPick = function (newPick) {
-        console.log('in postPicks', newPick);
+    vm.postPick = function (gamePicked) {
+        console.log('in postPicks', gamePicked);
         $http({
             method: 'POST',
-            url: '/picks/post',
-            data: newPick
+            url: '/picks/post' + gamePicked.id,
+            data: gamePicked
         }).then(function (response) {
             console.log('response', response);
         });

@@ -7,6 +7,7 @@ myApp.service('MatchupService', function($http, $location){
     vm.dbWeekMatchupData = { list: [] };
     vm.newSpread = {};
     vm.dbWeekMatchDataWinners = { list: [] };
+    vm.standingsData = { list: [] };
     
 
 
@@ -169,6 +170,17 @@ myApp.service('MatchupService', function($http, $location){
     });//end .then for calcWinners
         
     };//end calc winners
+
+    vm.seasonStandings = function () {
+        console.log('in seasonStandings')
+        $http({
+            method: 'GET',
+            url: '/matchups/standings',
+        }).then(function (response) {
+            vm.standingsData.list = response.data;
+            console.log('standingsData ', vm.standingsData.list);
+        });
+    };//end get matchups
 
 
    

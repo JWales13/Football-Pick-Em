@@ -113,5 +113,31 @@ router.put('/winners', function (req, res) {
 });
 
 
+router.get('/standings', function (req, res) {
+   
+    
+    pool.connect(function (errorConnectingToDatabase, client, done) {
+        if (errorConnectingToDatabase) {
+            console.log('error', errorConnectingToDatabase);
+            res.sendStatus(500);
+        } else {
+            
+            client.query( `SELECT picks.matchup, picks.user, picks.team, matchup.id, matchup.winner_id, users.id, users.username
+            FROM picks
+            INNER JOIN users ON picks.user = users.id
+            INNER JOIN matchup ON picks.matchup = matchup.id;`,
+            function (errorMakingDatabaseQuery, result) {
+                done();
+                if (errorMakingDatabaseQuery) {
+                    console.log('error', errorMakingDatabaseQuery);
+                    res.sendStatus(500);
+                } else {
+                    res.send(result.rows);
+                }
+            });
+        }
+    });
+});
+
 
 module.exports = router;

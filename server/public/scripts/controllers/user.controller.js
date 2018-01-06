@@ -11,6 +11,9 @@ myApp.controller('UserController',['UserService','MatchupService',  function(Use
     vm.newSpread = MatchupService.newSpread;
     vm.calcWeekWinners= MatchupService.calcWeekWinners;
 
+    vm.seasonStandings = MatchupService.seasonStandings;
+
+    vm.seasonStandings();
 
     
   }]);
