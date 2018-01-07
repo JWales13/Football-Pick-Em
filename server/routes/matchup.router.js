@@ -140,4 +140,58 @@ router.get('/standings', function (req, res) {
 });
 
 
+
+router.get('/user-picks', function (req, res) {
+   
+    
+    pool.connect(function (errorConnectingToDatabase, client, done) {
+        if (errorConnectingToDatabase) {
+            console.log('error', errorConnectingToDatabase);
+            res.sendStatus(500);
+        } else {
+            
+            client.query( `SELECT users.id, users.username, picks.user, picks.team, picks.matchup, team.name
+            FROM users
+            INNER JOIN picks ON picks.user = users.id
+            INNER JOIN team on team.id = picks.team;`,
+            function (errorMakingDatabaseQuery, result) {
+                done();
+                if (errorMakingDatabaseQuery) {
+                    console.log('error', errorMakingDatabaseQuery);
+                    res.sendStatus(500);
+                } else {
+                    res.send(result.rows);
+                }
+            });
+        }
+    });
+});
+
+
+router.get('/user-pick-matchups', function (req, res) {
+   
+    
+    pool.connect(function (errorConnectingToDatabase, client, done) {
+        if (errorConnectingToDatabase) {
+            console.log('error', errorConnectingToDatabase);
+            res.sendStatus(500);
+        } else {
+            
+            client.query( `SELECT users.id, users.username, picks.user, picks.team, picks.matchup
+            FROM users
+            INNER JOIN picks ON picks.user = users.id;`,
+            function (errorMakingDatabaseQuery, result) {
+                done();
+                if (errorMakingDatabaseQuery) {
+                    console.log('error', errorMakingDatabaseQuery);
+                    res.sendStatus(500);
+                } else {
+                    res.send(result.rows);
+                }
+            });
+        }
+    });
+});
+
+
 module.exports = router;

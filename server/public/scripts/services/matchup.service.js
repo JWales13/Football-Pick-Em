@@ -8,6 +8,37 @@ myApp.service('MatchupService', function($http, $location){
     vm.newSpread = {};
     vm.dbWeekMatchDataWinners = { list: [] };
     vm.standingsData = { list: [] };
+    vm.userPickData = { list: [] };
+    
+    
+    vm.players = [
+        {
+            userID: 1,
+            userName: 'player1',
+            pointTotal: 0
+        },
+        {
+            userID: 2,
+            userName: 'player2',
+            pointTotal: 0
+        },
+        {
+            userID: 3,
+            userName: 'player3',
+            pointTotal: 0
+        },
+        {
+            userID: 4,
+            userName: 'player4',
+            pointTotal: 0
+        },
+        {
+            userID: 5,
+            userName: 'player5',
+            pointTotal: 0
+        },
+       
+    ];
     
 
 
@@ -179,11 +210,56 @@ myApp.service('MatchupService', function($http, $location){
         }).then(function (response) {
             vm.standingsData.list = response.data;
             console.log('standingsData ', vm.standingsData.list);
+            vm.standingsFunction();
         });
     };//end get matchups
 
+``
 
-   
+   vm.standingsFunction = function(){
+       for(var i = 0; i < vm.standingsData.list.length; i++){
+           var user = vm.standingsData.list[i].user;
+           var team = vm.standingsData.list[i].team;
+           var winner = vm.standingsData.list[i].winner_id
+            vm.findPlayer(user,team, winner);
+       }
+       console.log('player + scores',vm.players);
+   }//end first function
+
+   vm.findPlayer = function(user,team, winner){
+       for(var i = 0; i < vm.players.length; i++){
+            if(vm.players[i].userID === user && team === winner){
+                vm.players[i].pointTotal++;
+            }//end if
+       }
+   }//end find player
+
+
+
+
+   vm.getUserPicks = function() {
+    console.log('in getUserPicks')
+    $http({
+        method: 'GET',
+        url: '/matchups/user-picks',
+    }).then(function (response) {
+        vm.userPickData.list = response.data;
+        console.log('userPickData ', vm.userPickData.list);
+        
+    });
+   }//end user picks
+
+   vm.getMatchups4UserPicks = function(){
+    console.log('in getMatchups4UserPicks')
+    $http({
+        method: 'GET',
+        url: '/matchups/user-pick-matchups',
+    }).then(function (response) {
+        vm.userPickMatchupData.list = response.data;
+        console.log('user pick w/ matchups ', vm.userPickMatchupData.list);
+        
+    });
+   }
 
 }); //end service
 

@@ -21,15 +21,7 @@ myApp.service('PickService', function($http, $location){
         });
     };//end gets weeks matchups
 
-    // vm.getAllMatchupData = function () {
-    //     $http({
-    //         method: 'GET',
-    //         url: '/picks'
-    //     }).then(function (response) {
-    //         vm.dbAllMatchupData.list = response.data;
-    //         console.log('getting back from DB', vm.dbAllMatchupData.list);
-    //     });
-    // };//end get all matchup data
+
 
 
     vm.postPick = function (gamePicked) {

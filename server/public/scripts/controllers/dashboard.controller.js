@@ -3,8 +3,10 @@ myApp.controller('DashboardController', [ '$http', 'MatchupService', function ($
     var vm = this;
     vm.populateDB = MatchupService.populateDB;
     vm.seasonStandings = MatchupService.seasonStandings;
+    vm.addUpPoints = MatchupService.addUpPoints;
 
-    vm.seasonStandings();
+    
+    
 
 
 
