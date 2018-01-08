@@ -12,12 +12,12 @@
     background-image: url("https://mattwyles.files.wordpress.com/2014/12/shutterstock_163265741.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed; */
-}
+
 
 /* /Users/joe/Documents/elnath/footballPickEm/images */
 /* ../images/background_img.jpg */
-.container { 
-    background-image: url("https://mattwyles.files.wordpress.com/2014/12/shutterstock_163265741.jpg") no-repeat center center fixed; 
+html { 
+    background: url("https://mattwyles.files.wordpress.com/2014/12/shutterstock_163265741.jpg") no-repeat center center fixed; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -30,6 +30,8 @@
     width: 400px;
     text-align: center;
     border-collapse: collapse;
+    margin: 50px;
+    opacity: .75;
   }
   table.standings td, table.standings th {
     border: 1px solid #050505;
@@ -77,4 +79,70 @@
 
   .welcomeHeader {
       display: inline-block;
+      color: white;
   }
+
+  #logout {
+      float: right;
+  }
+
+.commishTools {
+    border: 1px solid black;
+    margin: 25px;
+    padding: 20px;
+    color: black;
+    background-color: white;
+    opacity: .75;
+    width: 75%;
+    
+
+}
+
+.playerPicks {
+    margin: 25px;
+}
+
+body { 
+    background: url("https://mattwyles.files.wordpress.com/2014/12/shutterstock_163265741.jpg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    
+  }
+
+ .lead {
+     color: white;
+ }
+
+ a{
+     color: white;
+     padding: 20px;
+ }
+
+ #showPicks {
+    opacity: 0.75;
+    width: 50%;
+    text-align: center;
+ }
+
+ #makePicks {
+     color: black;
+     padding: 20px;
+     margin: 25px;
+     background-color: white;
+     opacity: 0.75;
+     width:50%;
+ }
+
+ .picksSpread {
+     text-align: center;
+ }
+
+ th {
+     padding: 20px;
+ }
+ td {
+    padding: 20px;
+    text-align: center;
+}

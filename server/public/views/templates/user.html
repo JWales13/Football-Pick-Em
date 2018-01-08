@@ -1,9 +1,9 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
-    <div class="welcomeHeader">
+    
     <h1 id="Welcome" class="lead">Welcome, {{uc.userObject.userName}}!</h1>
-    <button class="btn btn-default" ng-click="uc.userService.logout()">Log Out</button>
-    </div>
+    <button class="btn btn-default" id="logout" ng-click="uc.userService.logout()">Log Out</button>
+    
 </div>
 
 
@@ -127,7 +127,7 @@
         </table>
       </div>
 
-        <div> 
+        <div class="playerPicks"> 
           <select name="week"  ng-model='vm.selectedWeek.week' class="custom-select mr-sm-2">
             <option value="">--Select Week--</option>
             <option value= '1' >--Week 1--</option>
@@ -150,7 +150,7 @@
           </select>
           <button class="btn btn-default" ng-click="uc.getWeekMatchups(vm.selectedWeek)">See Everyone's Picks for the week</button>
 
-          <div class="container">
+          <div class="container" id="showPicks">
             <ul class="list-group">
               <li class="list-group-item" ng-repeat = "game in uc.dbWeekMatchupData.list | orderBy: 'date' ">
                     <div class="teamNames" >

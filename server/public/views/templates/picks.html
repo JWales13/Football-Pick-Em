@@ -1,5 +1,5 @@
 <div ng-include="'views/partials/nav.html'"></div>
-<div class="container">
+<div class="container" id="makePicks">
   <p>
     Make Your Selections For The Week
   </p>
@@ -33,11 +33,11 @@
   
   <form ng-repeat="game in vm.dbWeekMatchupData.list | orderBy: 'id'">
       <div class="pure-form pure-form-stacked">
-    <label>
+    <label class="col-sm-4">
       <input type="radio" ng-model="game.newPick" value="{{game.home}}" ng-click="vm.postPick(game)"> {{game.home}} 
     </label>
-    <label><input type="radio" ng-model="game.newPick" value="{{game.away}}" ng-click="vm.postPick(game)" >{{game.away}}</label>
-    <label>Home Team Spread<p> {{game.home_team_spread}} </p></label>
+    <label class="col-sm-4"><input type="radio" ng-model="game.newPick" value="{{game.away}}" ng-click="vm.postPick(game)" >{{game.away}}</label>
+    <label class="col-sm-4" class="picksSpread">Home Team Spread<p> {{game.home_team_spread}} </p></label>
   </div>
   </form>
 
