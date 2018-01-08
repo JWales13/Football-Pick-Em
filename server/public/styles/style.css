@@ -3,3 +3,78 @@
     display: inline-block;
     text-align: center;
 };
+
+.commishTools {
+    float: right;
+};
+
+/* .main-view{
+    background-image: url("https://mattwyles.files.wordpress.com/2014/12/shutterstock_163265741.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed; */
+}
+
+/* /Users/joe/Documents/elnath/footballPickEm/images */
+/* ../images/background_img.jpg */
+.container { 
+    background-image: url("https://mattwyles.files.wordpress.com/2014/12/shutterstock_163265741.jpg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+
+  table.standings {
+    border: 4px solid #050505;
+    background-color: #555555;
+    width: 400px;
+    text-align: center;
+    border-collapse: collapse;
+  }
+  table.standings td, table.standings th {
+    border: 1px solid #050505;
+    padding: 5px 10px;
+  }
+  table.standings tbody td {
+    font-size: 12px;
+    font-weight: bold;
+    color: #FFFFFF;
+  }
+  table.standings tr:nth-child(even) {
+    background: #B8B8B8;
+  }
+  table.standings td:nth-child(even) {
+    background: #B8B8B8;
+  }
+  table.standings thead {
+    background: #B8B8B8;
+    border-bottom: 10px solid #050505;
+  }
+  table.standings thead th {
+    font-size: 15px;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-align: left;
+    border-left: 2px solid #050505;
+  }
+  table.standings thead th:first-child {
+    border-left: none;
+  }
+  
+  table.standings tfoot td {
+    font-size: 13px;
+  }
+  table.standings tfoot .links {
+    text-align: right;
+  }
+  table.standings tfoot .links a{
+    display: inline-block;
+    background: #FFFFFF;
+    color: #B8B8B8;
+    padding: 2px 8px;
+    border-radius: 5px;
+  }
+
+  .welcomeHeader {
+      display: inline-block;
+  }

@@ -1,18 +1,19 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
-
+    <div class="welcomeHeader">
     <h1 id="Welcome" class="lead">Welcome, {{uc.userObject.userName}}!</h1>
     <button class="btn btn-default" ng-click="uc.userService.logout()">Log Out</button>
+    </div>
 </div>
 
 
 
-<div ng-model="uc.userObject.is_Commissioner" ng-if="uc.userObject.is_Commissioner == true">
-  <h2>Commissioner Tools</h2>
-    <button ng-model="uc.userObject.is_Commissioner" ng-if="uc.userObject.is_Commissioner == true" ng-click="vm.populateDB(vm.matchupData.list.weeks)">Populate Matchups for Season</button>
+<div class="commishTools" ng-model="uc.userObject.is_Commissioner" ng-if="uc.userObject.is_Commissioner == true">
+  <h4>Commissioner Tools</h4>
+    <button  class="btn btn-default" ng-model="uc.userObject.is_Commissioner" ng-if="uc.userObject.is_Commissioner == true" ng-click="vm.populateDB(vm.matchupData.list.weeks)">Populate Matchups for Season</button>
 
 
-<button ng-hide="displayed" ng-model="collapsed" ng-click="collapsed=!collapsed">Toggle Spreads Menu</button>
+<button class="btn btn-default" ng-hide="displayed" ng-model="collapsed" ng-click="collapsed=!collapsed">Toggle Spreads Menu</button>
 
 <div ng-show="collapsed" > 
         <select name="week"  ng-model='vm.selectedWeek.week'>
@@ -35,13 +36,13 @@
           <option value= '16' >--Week 16--</option>
           <option value= '17' >--Week 17--</option>
         </select>
-        <button ng-click="uc.getWeekMatchups(vm.selectedWeek)">Get Week's Matchups</button>
+        <button class="btn btn-default" ng-click="uc.getWeekMatchups(vm.selectedWeek)">Get Week's Matchups</button>
       
         <input type="text" ng-model="vm.newSpread.id" placeholder="Matchup ID" >
         <input type="text" ng-model="vm.newSpread.home_team_spread" placeholder="Spread for Home Team">
-        <button  ng-click=uc.addSpread(vm.newSpread)> Add Spread</button> 
+        <button class="btn btn-default" ng-click=uc.addSpread(vm.newSpread)> Add Spread</button> 
 
-        <table>
+        <table class=".table-striped">
             <thead>
               <tr>
                 <th>
@@ -70,7 +71,7 @@
         </div><!--end spread div-->
 
 
-        <button ng-hide="collapsed" ng-model="displayed" ng-click="displayed=!displayed">Toggle Game Winners Menu</button>
+        <button class="btn btn-default" ng-hide="collapsed" ng-model="displayed" ng-click="displayed=!displayed">Toggle Game Winners Menu</button>
 
 <div ng-show="displayed" > 
         <select name="week"  ng-model='vm.selectedWeek.week'>
@@ -93,7 +94,7 @@
           <option value= '16' >--Week 16--</option>
           <option value= '17' >--Week 17--</option>
         </select>
-        <button ng-click="uc.calcWeekWinners(vm.selectedWeek)">calculate game winners for this week</button>
+        <button class="btn btn-default" ng-click="uc.calcWeekWinners(vm.selectedWeek)">calculate game winners for this week</button>
         
 
     
@@ -102,7 +103,7 @@
       </div><!--end commissioner tools-->
 
       <div>
-        <table>
+        <table class="standings">
           <thead>
             <tr>
               <th>
@@ -127,7 +128,7 @@
       </div>
 
         <div> 
-          <select name="week"  ng-model='vm.selectedWeek.week'>
+          <select name="week"  ng-model='vm.selectedWeek.week' class="custom-select mr-sm-2">
             <option value="">--Select Week--</option>
             <option value= '1' >--Week 1--</option>
             <option value= '2' >--Week 2--</option>
@@ -147,17 +148,17 @@
             <option value= '16' >--Week 16--</option>
             <option value= '17' >--Week 17--</option>
           </select>
-          <button ng-click="uc.getWeekMatchups(vm.selectedWeek)">See Everyone's Picks for the week</button>
+          <button class="btn btn-default" ng-click="uc.getWeekMatchups(vm.selectedWeek)">See Everyone's Picks for the week</button>
 
           <div class="container">
-            <ul>
-              <li  ng-repeat = "game in uc.dbWeekMatchupData.list | orderBy: 'date' ">
-                    <div class="teamNames">
-                      <h5>
+            <ul class="list-group">
+              <li class="list-group-item" ng-repeat = "game in uc.dbWeekMatchupData.list | orderBy: 'date' ">
+                    <div class="teamNames" >
+                      <h5 class="panel-heading">
                         {{game.home}}
                       </h5>
-                      <ul ng-repeat="player in uc.userPickData.list" >
-                      <li ng-if="player.matchup === game.id && player.name === game.home" >
+                      <ul class="list-group" ng-repeat="player in uc.userPickData.list" >
+                      <li class="list-group-item" ng-if="player.matchup === game.id && player.name === game.home" >
                          
                             {{player.username}}
                           
@@ -166,11 +167,11 @@
                       </div>
                     
                       <div class="teamNames">
-                      <h5>
+                      <h5 class="panel-heading">
                         {{game.away}}
                       </h5>
-                      <ul ng-repeat="player in uc.userPickData.list" >
-                      <li ng-if="player.matchup === game.id && player.name === game.away" >
+                      <ul class="list-group" ng-repeat="player in uc.userPickData.list" >
+                      <li class="list-group-item" ng-if="player.matchup === game.id && player.name === game.away" >
                          
                             {{player.username}}
                           

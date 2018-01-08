@@ -15,9 +15,13 @@ myApp.controller('UserController',['UserService','MatchupService',  function(Use
     vm.seasonStandings = MatchupService.seasonStandings;
     vm.userPickData = MatchupService.userPickData;
     vm.players = MatchupService.players;
+    
+
+  
 
     vm.seasonStandings();
     vm.getUserPicks();
+    
     
     
   }]);

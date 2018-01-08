@@ -30,13 +30,16 @@
 
 
 
-  <div>
+  
   <form ng-repeat="game in vm.dbWeekMatchupData.list | orderBy: 'id'">
-    <label><input type="radio" ng-model="game.newPick" value="{{game.home}}" ng-click="vm.postPick(game)"> {{game.home}} </label>
+      <div class="pure-form pure-form-stacked">
+    <label>
+      <input type="radio" ng-model="game.newPick" value="{{game.home}}" ng-click="vm.postPick(game)"> {{game.home}} 
+    </label>
     <label><input type="radio" ng-model="game.newPick" value="{{game.away}}" ng-click="vm.postPick(game)" >{{game.away}}</label>
     <label>Home Team Spread<p> {{game.home_team_spread}} </p></label>
-    
+  </div>
   </form>
-</div>
+
 </div>
 
