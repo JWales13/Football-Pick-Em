@@ -9,6 +9,7 @@ myApp.service('MatchupService', function($http, $location){
     vm.dbWeekMatchDataWinners = { list: [] };
     vm.standingsData = { list: [] };
     vm.userPickData = { list: [] };
+  
     
     
     vm.players = [
@@ -210,29 +211,82 @@ myApp.service('MatchupService', function($http, $location){
         }).then(function (response) {
             vm.standingsData.list = response.data;
             console.log('standingsData ', vm.standingsData.list);
+          
+        
             vm.standingsFunction();
         });
     };//end get matchups
 
+
 ``
 
+
    vm.standingsFunction = function(){
+    var right = 0;
+    var wrong = 0;
        for(var i = 0; i < vm.standingsData.list.length; i++){
-           var user = vm.standingsData.list[i].user;
+           console.log('in first standings for loop');
+           var users = vm.standingsData.list[i].id;
            var team = vm.standingsData.list[i].team;
-           var winner = vm.standingsData.list[i].winner_id
-            vm.findPlayer(user,team, winner);
-       }
+           var winner = vm.standingsData.list[i].winner_id;
+           for(var j = 0; j < team.length; j++){
+                
+               console.log('in 2nd standings for loop');
+               if(team[j] == winner){
+                   ++right;
+               }//end if
+               else if(winner == null) {
+                   console.log('no bet');
+               }//end else if
+               else {
+                   ++wrong
+               }//end else
+               
+               console.log('right:', right, 'wrong:', wrong);
+
+           }//end team for loop
+
+           for(var u = 0; u < users.length; u++){
+            var user = users[u];
+            var currentTeam = vm.standingsData.list[i].team[u];
+            vm.findPlayer(user,currentTeam, winner, right, wrong);
+           }//end user for loop
+           
+            console.log('player + scores',vm.players);
+            var right = 0;
+            var wrong = 0;
+           
+       }//end first for loop
        console.log('player + scores',vm.players);
    }//end first function
 
-   vm.findPlayer = function(user,team, winner){
-       for(var i = 0; i < vm.players.length; i++){
-            if(vm.players[i].userID === user && team === winner){
-                vm.players[i].pointTotal++;
-            }//end if
-       }
+//    function matchupIterator(matchup) {
+//        var cleanedMatchup = [];
+//         for(var i = 0; i < matchup.username.length; i++) {
+//             cleanedMatchup = 
+//         }
+//    }
+
+   vm.findPlayer = function(user,currentTeam, winner, right, wrong){
+       for(var k = 0; k < vm.players.length; k++){
+        
+            
+                if(vm.players[k].userID === user && currentTeam === winner){
+                    vm.players[k].pointTotal = (vm.players[k].pointTotal  + wrong);
+                }//end if
+                else if(vm.players[k].userID === user && currentTeam != winner){
+                    vm.players[k].pointTotal = (vm.players[k].pointTotal - right);
+                }//end elseif
+                else{
+                    console.log('not the right player');
+                }
+            
+          
+       }//end player for loop
    }//end find player
+
+
+
 
 
 
@@ -249,19 +303,67 @@ myApp.service('MatchupService', function($http, $location){
     });
    }//end user picks
 
-   vm.getMatchups4UserPicks = function(){
-    console.log('in getMatchups4UserPicks')
+
+
+   vm.getWeekMatchupsPicks = function (selectedWeek) {
+    console.log('in getWeekMatchups', selectedWeek);
     $http({
-        method: 'GET',
-        url: '/matchups/user-pick-matchups',
+        method: 'POST',
+        url: '/picks',
+        data: selectedWeek
     }).then(function (response) {
-        vm.userPickMatchupData.list = response.data;
-        console.log('user pick w/ matchups ', vm.userPickMatchupData.list);
-        
+        vm.dbWeekMatchupData.list = response.data;
+        console.log('got matchups', vm.dbWeekMatchupData.list);
     });
-   }
+};//end gets weeks matchups
+
+
+
+
+
+
+
 
 }); //end service
 
 
 
+
+
+
+                    // sql statement that comes back as string
+
+                    // SELECT picks.matchup, matchup.winner_id, array_agg((picks.team, picks.user, users.username))
+                    // FROM picks
+                    // INNER JOIN users ON picks.user = users.id
+                    // INNER JOIN matchup ON picks.matchup = matchup.id
+                    // GROUP BY picks.matchup, matchup.winner_id;
+
+
+                    // sql statement with 3 arrays per matchup
+                    // SELECT picks.matchup, matchup.winner_id, array_agg((picks.team)) as team,  array_agg(users.id) as id, array_agg(users.username) as username
+                    // FROM picks
+                    // INNER JOIN users ON picks.user = users.id
+                    // INNER JOIN matchup ON picks.matchup = matchup.id
+                    // GROUP BY picks.matchup, matchup.winner_id;
+
+
+
+                    // new sql statement for getUserPicks
+
+                    // SELECT  picks.matchup, array_agg(users.username) as username, array_agg(picks.user) as user, array_agg(picks.team) as team, array_agg(team.name)as teamname
+                    // FROM users
+                    // INNER JOIN picks ON picks.user = users.id
+                    // INNER JOIN team on team.id = picks.team
+                    // GROUP BY picks.matchup;
+                 
+
+
+
+
+                // original sql statement for getUserPicks
+
+                // SELECT users.id, users.username, picks.user, picks.team, picks.matchup, team.name
+                // FROM users
+                // INNER JOIN picks ON picks.user = users.id
+                // INNER JOIN team on team.id = picks.team;

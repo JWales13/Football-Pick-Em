@@ -103,6 +103,7 @@
       </div><!--end commissioner tools-->
 
       <div>
+          <h4 class="seasonStandingsHeader">Season Standings</h4>
         <table class="standings">
           <thead>
             <tr>
@@ -148,9 +149,10 @@
             <option value= '16' >--Week 16--</option>
             <option value= '17' >--Week 17--</option>
           </select>
-          <button class="btn btn-default" ng-click="uc.getWeekMatchups(vm.selectedWeek)">See Everyone's Picks for the week</button>
+          <button class="btn btn-default" ng-click="uc.getWeekMatchupsPicks(vm.selectedWeek)">See Everyone's Picks for the week</button>
 
           <div class="container" id="showPicks">
+           
             <ul class="list-group">
               <li class="list-group-item" ng-repeat = "game in uc.dbWeekMatchupData.list | orderBy: 'date' ">
                     <div class="teamNames" >

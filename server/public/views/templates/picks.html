@@ -25,17 +25,20 @@
     <option value= '16' >--Week 16--</option>
     <option value= '17' >--Week 17--</option>
   </select>
-  <button ng-click="vm.getWeekMatchups(vm.selectedWeek)">Get Week's Matchups</button>
+  <button class="btn btn-default" ng-click="vm.getWeekMatchups(vm.selectedWeek)">Get Week's Matchups</button>
 </div>
 
 
-
-  
+<div class="picksHeaders">
+<h4>Home</h4> <h4>Away</h4>
+</div>
   <form ng-repeat="game in vm.dbWeekMatchupData.list | orderBy: 'id'">
       <div class="pure-form pure-form-stacked">
+       
     <label class="col-sm-4">
       <input type="radio" ng-model="game.newPick" value="{{game.home}}" ng-click="vm.postPick(game)"> {{game.home}} 
     </label>
+    
     <label class="col-sm-4"><input type="radio" ng-model="game.newPick" value="{{game.away}}" ng-click="vm.postPick(game)" >{{game.away}}</label>
     <label class="col-sm-4" class="picksSpread">Home Team Spread<p> {{game.home_team_spread}} </p></label>
   </div>

@@ -122,10 +122,11 @@ router.get('/standings', function (req, res) {
             res.sendStatus(500);
         } else {
             
-            client.query( `SELECT picks.matchup, picks.user, picks.team, matchup.id, matchup.winner_id, users.id, users.username
+            client.query( `SELECT picks.matchup, matchup.winner_id, array_agg((picks.team)) as team,  array_agg(users.id) as id, array_agg(users.username) as username
             FROM picks
             INNER JOIN users ON picks.user = users.id
-            INNER JOIN matchup ON picks.matchup = matchup.id;`,
+            INNER JOIN matchup ON picks.matchup = matchup.id
+            GROUP BY picks.matchup, matchup.winner_id;`,
             function (errorMakingDatabaseQuery, result) {
                 done();
                 if (errorMakingDatabaseQuery) {
@@ -168,30 +169,30 @@ router.get('/user-picks', function (req, res) {
 });
 
 
-router.get('/user-pick-matchups', function (req, res) {
+// router.get('/user-pick-matchups', function (req, res) {
    
     
-    pool.connect(function (errorConnectingToDatabase, client, done) {
-        if (errorConnectingToDatabase) {
-            console.log('error', errorConnectingToDatabase);
-            res.sendStatus(500);
-        } else {
+//     pool.connect(function (errorConnectingToDatabase, client, done) {
+//         if (errorConnectingToDatabase) {
+//             console.log('error', errorConnectingToDatabase);
+//             res.sendStatus(500);
+//         } else {
             
-            client.query( `SELECT users.id, users.username, picks.user, picks.team, picks.matchup
-            FROM users
-            INNER JOIN picks ON picks.user = users.id;`,
-            function (errorMakingDatabaseQuery, result) {
-                done();
-                if (errorMakingDatabaseQuery) {
-                    console.log('error', errorMakingDatabaseQuery);
-                    res.sendStatus(500);
-                } else {
-                    res.send(result.rows);
-                }
-            });
-        }
-    });
-});
+//             client.query( `SELECT users.id, users.username, picks.user, picks.team, picks.matchup
+//             FROM users
+//             INNER JOIN picks ON picks.user = users.id;`,
+//             function (errorMakingDatabaseQuery, result) {
+//                 done();
+//                 if (errorMakingDatabaseQuery) {
+//                     console.log('error', errorMakingDatabaseQuery);
+//                     res.sendStatus(500);
+//                 } else {
+//                     res.send(result.rows);
+//                 }
+//             });
+//         }
+//     });
+// });
 
 
 module.exports = router;

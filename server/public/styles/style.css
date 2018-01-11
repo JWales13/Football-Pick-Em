@@ -88,7 +88,7 @@ html {
 
 .commishTools {
     border: 1px solid black;
-    margin: 25px;
+    margin: 50px;
     padding: 20px;
     color: black;
     background-color: white;
@@ -99,7 +99,7 @@ html {
 }
 
 .playerPicks {
-    margin: 25px;
+    margin: 50px;
 }
 
 body { 
@@ -124,6 +124,7 @@ body {
     opacity: 0.75;
     width: 50%;
     text-align: center;
+    
  }
 
  #makePicks {
@@ -133,6 +134,8 @@ body {
      background-color: white;
      opacity: 0.75;
      width:50%;
+     
+     
  }
 
  .picksSpread {
@@ -146,3 +149,24 @@ body {
     padding: 20px;
     text-align: center;
 }
+
+.col-sm-4 {
+    padding: 20px;
+}
+
+.seasonStandingsHeader {
+    margin: 50px;
+}
+
+.picksHeaders h4{
+    display: inline-block;
+    
+    padding: 50px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 75px;
+    padding-right: 75px;
+    
+    white-space: nowrap;
+}
+
