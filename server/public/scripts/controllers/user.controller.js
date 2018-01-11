@@ -20,7 +20,6 @@ myApp.controller('UserController',['UserService','MatchupService',  function(Use
 
   
 
-    vm.seasonStandings();
     vm.getUserPicks();
     
     

@@ -9,6 +9,8 @@ myApp.service('MatchupService', function($http, $location){
     vm.dbWeekMatchDataWinners = { list: [] };
     vm.standingsData = { list: [] };
     vm.userPickData = { list: [] };
+
+   
   
     
     
@@ -321,7 +323,7 @@ myApp.service('MatchupService', function($http, $location){
 
 
 
-
+vm.seasonStandings();
 
 
 }); //end service
