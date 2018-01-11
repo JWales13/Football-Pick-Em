@@ -1,7 +1,7 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
     
-    <h1 id="Welcome" class="lead">Welcome, {{uc.userObject.userName}}!</h1>
+    <h1 id="Welcome" >Welcome, {{uc.userObject.userName}}!</h1>
     <button class="btn btn-default" id="logout" ng-click="uc.userService.logout()">Log Out</button>
     
 </div>
@@ -102,7 +102,7 @@
 
       </div><!--end commissioner tools-->
 
-      <div>
+      <div class= "seasonStandings">
           <h4 class="seasonStandingsHeader">Season Standings</h4>
         <table class="standings">
           <thead>

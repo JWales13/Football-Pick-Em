@@ -227,24 +227,24 @@ myApp.service('MatchupService', function($http, $location){
     var right = 0;
     var wrong = 0;
        for(var i = 0; i < vm.standingsData.list.length; i++){
-           console.log('in first standings for loop');
+           
            var users = vm.standingsData.list[i].id;
            var team = vm.standingsData.list[i].team;
            var winner = vm.standingsData.list[i].winner_id;
            for(var j = 0; j < team.length; j++){
                 
-               console.log('in 2nd standings for loop');
+               
                if(team[j] == winner){
                    ++right;
                }//end if
                else if(winner == null) {
-                   console.log('no bet');
+                   
                }//end else if
                else {
                    ++wrong
                }//end else
                
-               console.log('right:', right, 'wrong:', wrong);
+               
 
            }//end team for loop
 
@@ -254,20 +254,15 @@ myApp.service('MatchupService', function($http, $location){
             vm.findPlayer(user,currentTeam, winner, right, wrong);
            }//end user for loop
            
-            console.log('player + scores',vm.players);
+            
             var right = 0;
             var wrong = 0;
            
        }//end first for loop
-       console.log('player + scores',vm.players);
+       
    }//end first function
 
-//    function matchupIterator(matchup) {
-//        var cleanedMatchup = [];
-//         for(var i = 0; i < matchup.username.length; i++) {
-//             cleanedMatchup = 
-//         }
-//    }
+
 
    vm.findPlayer = function(user,currentTeam, winner, right, wrong){
        for(var k = 0; k < vm.players.length; k++){
@@ -279,9 +274,7 @@ myApp.service('MatchupService', function($http, $location){
                 else if(vm.players[k].userID === user && currentTeam != winner){
                     vm.players[k].pointTotal = (vm.players[k].pointTotal - right);
                 }//end elseif
-                else{
-                    console.log('not the right player');
-                }
+            
             
           
        }//end player for loop

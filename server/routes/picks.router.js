@@ -31,25 +31,7 @@ router.post('/', function (req, res) {
 });
 
 
-// router.get('/', function (req, res) {
-//     pool.connect(function (errorConnectingToDatabase, client, done) {
-//         if (errorConnectingToDatabase) {
-//             console.log('error', errorConnectingToDatabase);
-//             res.sendStatus(500);
-//         } else {
-//             client.query( `SELECT * FROM matchup;`,
-//             function (errorMakingDatabaseQuery, result) {
-//                 done();
-//                 if (errorMakingDatabaseQuery) {
-//                     console.log('error', errorMakingDatabaseQuery);
-//                     res.sendStatus(500);
-//                 } else {
-//                     res.send(result.rows);
-//                 }
-//             });
-//         }
-//     });
-// });
+
 
 router.post('/post:id', function (req, res) {
     var newPick = {};
