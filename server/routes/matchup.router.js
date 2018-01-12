@@ -169,30 +169,49 @@ router.get('/user-picks', function (req, res) {
 });
 
 
-// router.get('/user-pick-matchups', function (req, res) {
-   
-    
-//     pool.connect(function (errorConnectingToDatabase, client, done) {
-//         if (errorConnectingToDatabase) {
-//             console.log('error', errorConnectingToDatabase);
-//             res.sendStatus(500);
-//         } else {
+router.get('/users', function (req, res) {
+
+    pool.connect(function (errorConnectingToDatabase, client, done) {
+        if (errorConnectingToDatabase) {
+            console.log('error', errorConnectingToDatabase);
+            res.sendStatus(500);
+        } else {
             
-//             client.query( `SELECT users.id, users.username, picks.user, picks.team, picks.matchup
-//             FROM users
-//             INNER JOIN picks ON picks.user = users.id;`,
-//             function (errorMakingDatabaseQuery, result) {
-//                 done();
-//                 if (errorMakingDatabaseQuery) {
-//                     console.log('error', errorMakingDatabaseQuery);
-//                     res.sendStatus(500);
-//                 } else {
-//                     res.send(result.rows);
-//                 }
-//             });
-//         }
-//     });
-// });
+            client.query( `SELECT username, id FROM users`,
+            function (errorMakingDatabaseQuery, result) {
+                done();
+                if (errorMakingDatabaseQuery) {
+                    console.log('error', errorMakingDatabaseQuery);
+                    res.sendStatus(500);
+                } else {
+                    
+                    res.send(result.rows);
+                }
+            });
+        }
+    });
+});
+
+router.delete('/users/:id', function (req, res) {
+    var userIdToRemove = req.params.id;
+    console.log("userToDelete:", userIdToRemove);
+    pool.connect(function (errorConnectingToDatabase, client, done) {
+        if (errorConnectingToDatabase) {
+            console.log('Error connecting to database', errorConnectingToDatabase);
+            res.sendStatus(500);
+        } else {
+            client.query(`DELETE FROM users WHERE id=$1;`, [userIdToRemove], function (errorMakingQuery, result) {
+                done();
+                if (errorMakingQuery) {
+                    console.log('Error making query', errorMakingQuery);
+                    res.sendStatus(500);
+                } else {
+                    res.sendStatus(200);
+                }
+            });
+        }
+    });
+});
 
 
 module.exports = router;

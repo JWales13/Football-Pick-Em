@@ -1,4 +1,4 @@
-myApp.service('MatchupService', function($http, $location){
+myApp.service('MatchupService', function ($http, $location) {
     console.log('MatchupService Loaded');
     var vm = this;
     vm.matchupData = { list: [] };
@@ -9,11 +9,12 @@ myApp.service('MatchupService', function($http, $location){
     vm.dbWeekMatchDataWinners = { list: [] };
     vm.standingsData = { list: [] };
     vm.userPickData = { list: [] };
+    vm.usersData = { list: [] };
 
-   
-  
-    
-    
+
+
+
+
     vm.players = [
         {
             userID: 1,
@@ -40,9 +41,9 @@ myApp.service('MatchupService', function($http, $location){
             userName: 'player5',
             pointTotal: 0
         },
-       
+
     ];
-    
+
 
 
     vm.getMatchups = function () {
@@ -158,51 +159,51 @@ myApp.service('MatchupService', function($http, $location){
         }).then(function (response) {
             vm.dbWeekMatchDataWinners.list = response.data;
             console.log('got matchups for winners calc', vm.dbWeekMatchDataWinners.list);
-        
-        angular.forEach (vm.dbWeekMatchDataWinners.list, function(game,key){
-            if ((game.home_points + parseInt(game.home_team_spread)) > (game.away_points)) {
-                winnerObject = {
-                    id: game.id,
-                    winner_id: game.home
-                }
-                $http({
-                            method: 'PUT',
-                            url: '/matchups/winners',
-                            data: winnerObject
-                        }).then(function (response) {
-                            console.log('home team beat the spread');
-                        })
-            }//end if
-            else if ((game.home_points + parseInt(game.home_team_spread)) < (game.away_points)) {
-                winnerObject = {
-                    id: game.id,
-                    winner_id: game.away
-                }
-                $http({
-                    method: 'PUT',
-                    url: '/matchups/winners',
-                    data: winnerObject
-                }).then(function (response) {
-                    console.log('away team beat the spread');
-                })
-            }//end else if
-            else {
-                winnerObject = {
-                    id: game.id,
-                    winner_id: null
-                }
-                $http({
-                    method: 'PUT',
-                    url: '/matchups/winners',
-                    data: winnerObject
-                }).then(function (response) {
-                    console.log('this was a push');
-                })
-            }//end else
-        }) //end for each winners  
-        
-    });//end .then for calcWinners
-        
+
+            angular.forEach(vm.dbWeekMatchDataWinners.list, function (game, key) {
+                if ((game.home_points + parseInt(game.home_team_spread)) > (game.away_points)) {
+                    winnerObject = {
+                        id: game.id,
+                        winner_id: game.home
+                    }
+                    $http({
+                        method: 'PUT',
+                        url: '/matchups/winners',
+                        data: winnerObject
+                    }).then(function (response) {
+                        console.log('home team beat the spread');
+                    })
+                }//end if
+                else if ((game.home_points + parseInt(game.home_team_spread)) < (game.away_points)) {
+                    winnerObject = {
+                        id: game.id,
+                        winner_id: game.away
+                    }
+                    $http({
+                        method: 'PUT',
+                        url: '/matchups/winners',
+                        data: winnerObject
+                    }).then(function (response) {
+                        console.log('away team beat the spread');
+                    })
+                }//end else if
+                else {
+                    winnerObject = {
+                        id: game.id,
+                        winner_id: null
+                    }
+                    $http({
+                        method: 'PUT',
+                        url: '/matchups/winners',
+                        data: winnerObject
+                    }).then(function (response) {
+                        console.log('this was a push');
+                    })
+                }//end else
+            }) //end for each winners  
+
+        });//end .then for calcWinners
+
     };//end calc winners
 
     vm.seasonStandings = function () {
@@ -213,110 +214,134 @@ myApp.service('MatchupService', function($http, $location){
         }).then(function (response) {
             vm.standingsData.list = response.data;
             console.log('standingsData ', vm.standingsData.list);
-          
-        
+
+
             vm.standingsFunction();
         });
     };//end get matchups
 
 
-``
+    ``
 
 
-   vm.standingsFunction = function(){
-    var right = 0;
-    var wrong = 0;
-       for(var i = 0; i < vm.standingsData.list.length; i++){
-           
-           var users = vm.standingsData.list[i].id;
-           var team = vm.standingsData.list[i].team;
-           var winner = vm.standingsData.list[i].winner_id;
-           for(var j = 0; j < team.length; j++){
-                
-               
-               if(team[j] == winner){
-                   ++right;
-               }//end if
-               else if(winner == null) {
-                   
-               }//end else if
-               else {
-                   ++wrong
-               }//end else
-               
-               
+    vm.standingsFunction = function () {
+        var right = 0;
+        var wrong = 0;
+        for (var i = 0; i < vm.standingsData.list.length; i++) {
 
-           }//end team for loop
+            var users = vm.standingsData.list[i].id;
+            var team = vm.standingsData.list[i].team;
+            var winner = vm.standingsData.list[i].winner_id;
+            for (var j = 0; j < team.length; j++) {
 
-           for(var u = 0; u < users.length; u++){
-            var user = users[u];
-            var currentTeam = vm.standingsData.list[i].team[u];
-            vm.findPlayer(user,currentTeam, winner, right, wrong);
-           }//end user for loop
-           
-            
+
+                if (team[j] == winner) {
+                    ++right;
+                }//end if
+                else if (winner == null) {
+
+                }//end else if
+                else {
+                    ++wrong
+                }//end else
+
+
+
+            }//end team for loop
+
+            for (var u = 0; u < users.length; u++) {
+                var user = users[u];
+                var currentTeam = vm.standingsData.list[i].team[u];
+                vm.findPlayer(user, currentTeam, winner, right, wrong);
+            }//end user for loop
+
+
             var right = 0;
             var wrong = 0;
-           
-       }//end first for loop
-       
-   }//end first function
+
+        }//end first for loop
+
+    }//end first function
 
 
 
-   vm.findPlayer = function(user,currentTeam, winner, right, wrong){
-       for(var k = 0; k < vm.players.length; k++){
-        
-            
-                if(vm.players[k].userID === user && currentTeam === winner){
-                    vm.players[k].pointTotal = (vm.players[k].pointTotal  + wrong);
-                }//end if
-                else if(vm.players[k].userID === user && currentTeam != winner){
-                    vm.players[k].pointTotal = (vm.players[k].pointTotal - right);
-                }//end elseif
-            
-            
-          
-       }//end player for loop
-   }//end find player
+    vm.findPlayer = function (user, currentTeam, winner, right, wrong) {
+        for (var k = 0; k < vm.players.length; k++) {
+
+
+            if (vm.players[k].userID === user && currentTeam === winner) {
+                vm.players[k].pointTotal = (vm.players[k].pointTotal + wrong);
+            }//end if
+            else if (vm.players[k].userID === user && currentTeam != winner) {
+                vm.players[k].pointTotal = (vm.players[k].pointTotal - right);
+            }//end elseif
 
 
 
-
-
-
-
-   vm.getUserPicks = function() {
-    console.log('in getUserPicks')
-    $http({
-        method: 'GET',
-        url: '/matchups/user-picks',
-    }).then(function (response) {
-        vm.userPickData.list = response.data;
-        console.log('userPickData ', vm.userPickData.list);
-        
-    });
-   }//end user picks
-
-
-
-   vm.getWeekMatchupsPicks = function (selectedWeek) {
-    console.log('in getWeekMatchups', selectedWeek);
-    $http({
-        method: 'POST',
-        url: '/picks',
-        data: selectedWeek
-    }).then(function (response) {
-        vm.dbWeekMatchupData.list = response.data;
-        console.log('got matchups', vm.dbWeekMatchupData.list);
-    });
-};//end gets weeks matchups
+        }//end player for loop
+    }//end find player
 
 
 
 
 
-vm.seasonStandings();
+
+
+    vm.getUserPicks = function () {
+        console.log('in getUserPicks')
+        $http({
+            method: 'GET',
+            url: '/matchups/user-picks',
+        }).then(function (response) {
+            vm.userPickData.list = response.data;
+            console.log('userPickData ', vm.userPickData.list);
+
+        });
+    }//end user picks
+
+
+
+    vm.getWeekMatchupsPicks = function (selectedWeek) {
+        console.log('in getWeekMatchups', selectedWeek);
+        $http({
+            method: 'POST',
+            url: '/picks',
+            data: selectedWeek
+        }).then(function (response) {
+            vm.dbWeekMatchupData.list = response.data;
+            console.log('got matchups', vm.dbWeekMatchupData.list);
+        });
+    };//end gets weeks matchups
+
+    vm.getUsers = function () {
+        console.log('in getUser')
+        $http({
+            method: 'GET',
+            url: '/matchups/users',
+        }).then(function (response) {
+            vm.usersData.list = response.data;
+            console.log('userData ', vm.usersData.list);
+
+        });
+    }//end get users
+
+
+    vm.deleteUser = function (userToDelete) {
+        console.log("user to be deleted:",userToDelete)
+        $http({
+            method: 'DELETE',
+            url: '/matchups/users/' + userToDelete.id,
+        }).then(function (response) {
+            console.log('response', response)
+            vm.getUsers();
+        })
+    }//end deleteUser
+
+
+
+
+
+    vm.seasonStandings();
 
 
 }); //end service
@@ -351,7 +376,7 @@ vm.seasonStandings();
                     // INNER JOIN picks ON picks.user = users.id
                     // INNER JOIN team on team.id = picks.team
                     // GROUP BY picks.matchup;
-                 
+
 
 
 

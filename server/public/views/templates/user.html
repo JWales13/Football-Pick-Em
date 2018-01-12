@@ -96,9 +96,38 @@
         </select>
         <button class="btn btn-default" ng-click="uc.calcWeekWinners(vm.selectedWeek)">calculate game winners for this week</button>
         
-
     
         </div><!--end winners div-->
+
+
+
+        <div class="usersMenu">
+            <button class="btn btn-default" ng-hide="displayed || collapsed"  ng-model="view" ng-click="view=!view; uc.getUsers()">Users Menu</button>
+            <div ng-show="view">
+              <table>
+                <thead>
+                  <tr>
+                    <th>
+                      Users
+                    </th>
+                    <th>
+                      Edit
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="user in uc.usersData.list">
+                    <td>
+                      {{user.username}}
+                    </td>
+                    <td>
+                      <button type="button" class="glyphicon glyphicon-trash" ng-click="uc.deleteUser(user)"></button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        </div><!--end users div-->
 
       </div><!--end commissioner tools-->
 
