@@ -52,7 +52,6 @@ myApp.service('MatchupService', function ($http, $location) {
             url: '/matchups',
         }).then(function (response) {
             vm.matchupData.list = response.data;
-            console.log('data ', vm.matchupData.list.weeks);
         });
     };//end get matchups
 
@@ -62,9 +61,7 @@ myApp.service('MatchupService', function ($http, $location) {
     vm.populateDB = function (taco) {
         console.log('in populateDb')
         angular.forEach(vm.matchupData.list.weeks, function (week, key) {
-            // console.log('in first for loop, here are week numbers:', week.title);
             angular.forEach(week.games, function (game, key) {
-                // console.log('home team:', game.home.name);
 
                 if (game.status == "postponed") {
                     console.log('game postponed')
@@ -117,20 +114,16 @@ myApp.service('MatchupService', function ($http, $location) {
             url: '/matchups',
             data: newMatchup
         }).then(function (response) {
-            console.log(response)
         }) //end then
     } //end post
 
 
     vm.addSpread = function (newSpread) {
-        console.log('in addSpread', newSpread);
         $http({
             method: 'PUT',
-            url: '/matchups/spread', /*+ newSpread.id,*/
+            url: '/matchups/spread', 
             data: newSpread
         }).then(function (response) {
-            console.log('response', response);
-            // vm.getWeekMatchups();
             vm.newSpread.id = '';
             vm.newSpread.home_team_spread = '';
         });
@@ -138,27 +131,23 @@ myApp.service('MatchupService', function ($http, $location) {
 
 
     vm.getWeekMatchups = function (selectedWeek) {
-        console.log('in getWeekMatchups', selectedWeek);
         $http({
             method: 'POST',
             url: '/picks',
             data: selectedWeek
         }).then(function (response) {
             vm.dbWeekMatchupData.list = response.data;
-            console.log('got matchups', vm.dbWeekMatchupData.list);
         });
     };//end gets weeks matchups
 
 
     vm.calcWeekWinners = function (selectedWeek) {
-        console.log('in calcWinners', selectedWeek);
         $http({
             method: 'POST',
             url: '/matchups/winners',
             data: selectedWeek
         }).then(function (response) {
             vm.dbWeekMatchDataWinners.list = response.data;
-            console.log('got matchups for winners calc', vm.dbWeekMatchDataWinners.list);
 
             angular.forEach(vm.dbWeekMatchDataWinners.list, function (game, key) {
                 if ((game.home_points + parseInt(game.home_team_spread)) > (game.away_points)) {
@@ -171,7 +160,6 @@ myApp.service('MatchupService', function ($http, $location) {
                         url: '/matchups/winners',
                         data: winnerObject
                     }).then(function (response) {
-                        console.log('home team beat the spread');
                     })
                 }//end if
                 else if ((game.home_points + parseInt(game.home_team_spread)) < (game.away_points)) {
@@ -184,7 +172,6 @@ myApp.service('MatchupService', function ($http, $location) {
                         url: '/matchups/winners',
                         data: winnerObject
                     }).then(function (response) {
-                        console.log('away team beat the spread');
                     })
                 }//end else if
                 else {
@@ -197,25 +184,18 @@ myApp.service('MatchupService', function ($http, $location) {
                         url: '/matchups/winners',
                         data: winnerObject
                     }).then(function (response) {
-                        console.log('this was a push');
                     })
                 }//end else
             }) //end for each winners  
-
         });//end .then for calcWinners
-
     };//end calc winners
 
     vm.seasonStandings = function () {
-        console.log('in seasonStandings')
         $http({
             method: 'GET',
             url: '/matchups/standings',
         }).then(function (response) {
             vm.standingsData.list = response.data;
-            console.log('standingsData ', vm.standingsData.list);
-
-
             vm.standingsFunction();
         });
     };//end get matchups
@@ -276,8 +256,6 @@ myApp.service('MatchupService', function ($http, $location) {
                 vm.players[k].pointTotal = (vm.players[k].pointTotal - right);
             }//end elseif
 
-
-
         }//end player for loop
     }//end find player
 
@@ -288,51 +266,41 @@ myApp.service('MatchupService', function ($http, $location) {
 
 
     vm.getUserPicks = function () {
-        console.log('in getUserPicks')
         $http({
             method: 'GET',
             url: '/matchups/user-picks',
         }).then(function (response) {
             vm.userPickData.list = response.data;
-            console.log('userPickData ', vm.userPickData.list);
-
         });
     }//end user picks
 
 
 
     vm.getWeekMatchupsPicks = function (selectedWeek) {
-        console.log('in getWeekMatchups', selectedWeek);
         $http({
             method: 'POST',
             url: '/picks',
             data: selectedWeek
         }).then(function (response) {
             vm.dbWeekMatchupData.list = response.data;
-            console.log('got matchups', vm.dbWeekMatchupData.list);
         });
     };//end gets weeks matchups
 
     vm.getUsers = function () {
-        console.log('in getUser')
         $http({
             method: 'GET',
             url: '/matchups/users',
         }).then(function (response) {
             vm.usersData.list = response.data;
-            console.log('userData ', vm.usersData.list);
-
         });
     }//end get users
 
 
     vm.deleteUser = function (userToDelete) {
-        console.log("user to be deleted:",userToDelete)
         $http({
             method: 'DELETE',
             url: '/matchups/users/' + userToDelete.id,
         }).then(function (response) {
-            console.log('response', response)
             vm.getUsers();
         })
     }//end deleteUser

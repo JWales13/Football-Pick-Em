@@ -14,6 +14,6 @@ myApp.controller('PicksController', ['UserService', 'PickService', function (Use
 
 
 
-  
+
 
 }]);
