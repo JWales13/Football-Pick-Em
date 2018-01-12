@@ -19,6 +19,8 @@ myApp.controller('UserController', ['UserService', 'MatchupService', function (U
   vm.getUsers = MatchupService.getUsers;
   vm.deleteUser = MatchupService.deleteUser;
   vm.usersData = MatchupService.usersData;
+  vm.getWeekStandings = MatchupService.getWeekStandings;
+  vm.dbWeekStandingsData = MatchupService.dbWeekStandingsData; 
 
 
 

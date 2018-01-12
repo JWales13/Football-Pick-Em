@@ -78,6 +78,23 @@ html {
     border-radius: 5px;
   }
 
+
+  .seasonStandings h4 {
+    color: white;
+}
+
+.weekStandings h4 {
+    color: white;
+}
+
+.playerPicks h4{
+    color:white;
+}
+
+.standingsTables {
+    display: inline;
+}
+
   #Welcome{
       display: inline-block;
       color: #555555;
@@ -175,9 +192,8 @@ body {
     white-space: nowrap;
 }
 
-.seasonStandings h4 {
-    color: white;
-}
+
+
  .lead {
      font-weight: bold;
      font-size: 40pt;

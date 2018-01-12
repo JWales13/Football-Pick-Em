@@ -10,6 +10,7 @@ myApp.service('MatchupService', function ($http, $location) {
     vm.standingsData = { list: [] };
     vm.userPickData = { list: [] };
     vm.usersData = { list: [] };
+    vm.dbWeekStandingsData = { list: [] };
 
 
 
@@ -19,27 +20,32 @@ myApp.service('MatchupService', function ($http, $location) {
         {
             userID: 1,
             userName: 'player1',
-            pointTotal: 0
+            pointTotal: 0,
+            pointTotalWeek: 0
         },
         {
             userID: 2,
             userName: 'player2',
-            pointTotal: 0
+            pointTotal: 0,
+            pointTotalWeek: 0
         },
         {
             userID: 3,
             userName: 'player3',
-            pointTotal: 0
+            pointTotal: 0,
+            pointTotalWeek: 0
         },
         {
             userID: 4,
             userName: 'player4',
-            pointTotal: 0
+            pointTotal: 0,
+            pointTotalWeek: 0
         },
         {
             userID: 5,
             userName: 'player5',
-            pointTotal: 0
+            pointTotal: 0,
+            pointTotalWeek: 0
         },
 
     ];
@@ -241,12 +247,14 @@ myApp.service('MatchupService', function ($http, $location) {
 
         }//end first for loop
 
-    }//end first function
+    }//end standings function
 
 
 
     vm.findPlayer = function (user, currentTeam, winner, right, wrong) {
         for (var k = 0; k < vm.players.length; k++) {
+
+            
 
 
             if (vm.players[k].userID === user && currentTeam === winner) {
@@ -306,6 +314,74 @@ myApp.service('MatchupService', function ($http, $location) {
     }//end deleteUser
 
 
+    vm.getWeekStandings = function (selectedWeek) {
+        console.log("in getWeekStandimgs");
+        $http({
+            method: 'POST',
+            url: '/matchups/weekStandings',
+            data: selectedWeek
+        }).then(function (response) {
+            vm.dbWeekStandingsData.list = response.data;
+            console.log("standings data for week:", selectedWeek, "data:", vm.dbWeekStandingsData.list );
+            for (var k = 0; k < vm.players.length; k++) {
+                vm.players[k].pointTotalWeek = 0;
+            }
+            vm.weekStandingsFunction();
+        });
+    };//end gets weeks standings
+
+    vm.weekStandingsFunction = function () {
+        var right = 0;
+        var wrong = 0;
+        for (var i = 0; i < vm.dbWeekStandingsData.list.length; i++) {
+
+            var users = vm.dbWeekStandingsData.list[i].id;
+            var team = vm.dbWeekStandingsData.list[i].team;
+            var winner = vm.dbWeekStandingsData.list[i].winner_id;
+            for (var j = 0; j < team.length; j++) {
+
+
+                if (team[j] == winner) {
+                    ++right;
+                }//end if
+                else if (winner == null) {
+
+                }//end else if
+                else {
+                    ++wrong
+                }//end else
+
+
+
+            }//end team for loop
+
+            for (var u = 0; u < users.length; u++) {
+                var user = users[u];
+                var currentTeam = vm.dbWeekStandingsData.list[i].team[u];
+                vm.findPlayerForWeek(user, currentTeam, winner, right, wrong);
+            }//end user for loop
+
+
+            var right = 0;
+            var wrong = 0;
+
+        }//end first for loop
+
+    }//end standings function
+
+
+    vm.findPlayerForWeek = function (user, currentTeam, winner, right, wrong) {
+        for (var k = 0; k < vm.players.length; k++) {
+
+            if (vm.players[k].userID === user && currentTeam === winner) {
+                vm.players[k].pointTotalWeek = (vm.players[k].pointTotalWeek + wrong);
+            }//end if
+            else if (vm.players[k].userID === user && currentTeam != winner) {
+                vm.players[k].pointTotalWeek = (vm.players[k].pointTotalWeek - right);
+            }//end elseif
+
+        }//end player for loop
+    }//end find player
 
 
 

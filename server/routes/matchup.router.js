@@ -213,5 +213,32 @@ router.delete('/users/:id', function (req, res) {
     });
 });
 
+router.post('/weekStandings', function (req, res) {
+    var selectedWeek = req.body;
+    pool.connect(function (errorConnectingToDatabase, client, done) {
+        if (errorConnectingToDatabase) {
+            console.log('error', errorConnectingToDatabase);
+            res.sendStatus(500);
+        } else {
+
+            client.query(`SELECT picks.matchup, matchup.winner_id, matchup.week, array_agg((picks.team)) as team,  array_agg(users.id) as id, array_agg(users.username) as username
+            FROM picks
+            INNER JOIN users ON picks.user = users.id
+            INNER JOIN matchup ON picks.matchup = matchup.id
+            WHERE matchup.week = $1
+            GROUP BY picks.matchup, matchup.winner_id, matchup.week;`, [selectedWeek.week],
+                function (errorMakingDatabaseQuery, result) {
+                    done();
+                    if (errorMakingDatabaseQuery) {
+                        console.log('error', errorMakingDatabaseQuery);
+                        res.sendStatus(500);
+                    } else {
+                        res.send(result.rows);
+                    }
+                });
+        }
+    });
+});
+
 
 module.exports = router;

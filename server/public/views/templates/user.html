@@ -122,7 +122,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="user in uc.usersData.list">
+          <tr ng-repeat="user in uc.usersData.list | orderBy: 'id' ">
             <td>
               {{user.username}}
             </td>
@@ -138,7 +138,7 @@
 
 </div>
 <!--end commissioner tools-->
-
+<div class= "standingsTables">
 <div class="seasonStandings">
   <h4 class="seasonStandingsHeader">Season Standings</h4>
   <table class="standings">
@@ -165,8 +165,36 @@
   </table>
 </div>
 
+<div class="weekStandings" ng-if="clicked">
+    <h4 class="seasonStandingsHeader">Standings for Selected Week</h4>
+    <table class="standings">
+      <thead>
+        <tr>
+          <th>
+            Player Name
+          </th>
+          <th>
+            Total Points
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="person in uc.players  | orderBy: '-pointTotalWeek' ">
+          <td>
+            {{person.userName}}
+          </td>
+          <td>
+            {{person.pointTotalWeek}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
 <div class="playerPicks">
-  <select name="week" ng-model='vm.selectedWeek.week' class="custom-select mr-sm-2">
+    <h4>See Everyone's Picks for the week</h4>
+  <select name="week" ng-model='vm.selectedWeek.week' class="custom-select mr-sm-2" ng-change="clicked=!clicked;uc.getWeekMatchupsPicks(vm.selectedWeek); uc.getWeekStandings(vm.selectedWeek); ">
     <option value="">--Select Week--</option>
     <option value='1'>--Week 1--</option>
     <option value='2'>--Week 2--</option>
@@ -186,7 +214,7 @@
     <option value='16'>--Week 16--</option>
     <option value='17'>--Week 17--</option>
   </select>
-  <button class="btn btn-default" ng-click="uc.getWeekMatchupsPicks(vm.selectedWeek)">See Everyone's Picks for the week</button>
+  
 
   <div class="container" id="showPicks">
 
