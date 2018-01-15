@@ -11,6 +11,7 @@ myApp.service('MatchupService', function ($http, $location) {
     vm.userPickData = { list: [] };
     vm.usersData = { list: [] };
     vm.dbWeekStandingsData = { list: [] };
+    vm.dbWeekMatchupDataSpreads = { list: [] };
 
 
 
@@ -19,34 +20,35 @@ myApp.service('MatchupService', function ($http, $location) {
     vm.players = [
         {
             userID: 1,
-            userName: 'player1',
+            userName: 'Joe',
             pointTotal: 0,
             pointTotalWeek: 0
         },
         {
             userID: 2,
-            userName: 'player2',
+            userName: 'Nathan',
             pointTotal: 0,
             pointTotalWeek: 0
         },
         {
             userID: 3,
-            userName: 'player3',
+            userName: 'Jim',
             pointTotal: 0,
             pointTotalWeek: 0
         },
         {
             userID: 4,
-            userName: 'player4',
+            userName: 'Scott',
             pointTotal: 0,
             pointTotalWeek: 0
         },
         {
             userID: 5,
-            userName: 'player5',
+            userName: 'Laura',
             pointTotal: 0,
             pointTotalWeek: 0
         },
+     
 
     ];
 
@@ -143,6 +145,17 @@ myApp.service('MatchupService', function ($http, $location) {
             data: selectedWeek
         }).then(function (response) {
             vm.dbWeekMatchupData.list = response.data;
+            vm.dbWeekMatchupDataSpreads.list = response.data;
+        });
+    };//end gets weeks matchups
+
+    vm.getWeekMatchupsSpreads = function (selectedWeek) {
+        $http({
+            method: 'POST',
+            url: '/picks',
+            data: selectedWeek
+        }).then(function (response) {
+            vm.dbWeekMatchupDataSpreads.list = response.data;
         });
     };//end gets weeks matchups
 
@@ -202,6 +215,7 @@ myApp.service('MatchupService', function ($http, $location) {
             url: '/matchups/standings',
         }).then(function (response) {
             vm.standingsData.list = response.data;
+            console.log('standings data:',vm.standingsData.list)
             vm.standingsFunction();
         });
     };//end get matchups

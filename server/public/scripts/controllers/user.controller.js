@@ -21,6 +21,8 @@ myApp.controller('UserController', ['UserService', 'MatchupService', function (U
   vm.usersData = MatchupService.usersData;
   vm.getWeekStandings = MatchupService.getWeekStandings;
   vm.dbWeekStandingsData = MatchupService.dbWeekStandingsData; 
+  vm.dbWeekMatchupDataSpreads = MatchupService.dbWeekMatchupDataSpreads;
+  vm.getWeekMatchupsSpreads = MatchupService.getWeekMatchupsSpreads;
 
 
 

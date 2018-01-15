@@ -2,22 +2,11 @@
     vertical-align: text-top;
     display: inline-block;
     text-align: center;
+    width: 40%;
 };
 
-.commishTools {
-    float: right;
-};
 
-/* .main-view{
-    background-image: url("https://mattwyles.files.wordpress.com/2014/12/shutterstock_163265741.jpg");
-    background-repeat: no-repeat;
-    background-attachment: fixed; */
-
-
-/* /Users/joe/Documents/elnath/footballPickEm/images */
-/* ../images/background_img.jpg */
 html { 
-    background: url("https://mattwyles.files.wordpress.com/2014/12/shutterstock_163265741.jpg") no-repeat center center fixed; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -31,6 +20,7 @@ html {
     text-align: center;
     border-collapse: collapse;
     margin: 50px;
+    margin-top: 25px;
     opacity: .85;
     padding-bottom: 25px;
   }
@@ -78,13 +68,28 @@ html {
     border-radius: 5px;
   }
 
-
-  .seasonStandings h4 {
-    color: white;
+  .seasonStandingsHeader {
+    margin-left: 50px;
+    margin-right: 10px;;
+    width:50%;
+    display: inline-block;
 }
 
-.weekStandings h4 {
-    color: white;
+.seasonStandingsHeader h4 {
+    margin-right: 0%;
+    display: inline-block;
+}
+
+.seasonStandings {
+    width: 35%;
+    float: left;
+}
+
+
+.weekStandings{
+    width: 40%;
+    float: right;
+    margin-right: 100px;
 }
 
 .playerPicks h4{
@@ -92,12 +97,14 @@ html {
 }
 
 .standingsTables {
-    display: inline;
+    display: inline-block;
+    width: 100%;
+    color: white;
 }
 
   #Welcome{
-      display: inline-block;
-      color: #555555;
+      display: inline;
+      color: white;
       font-size: 20pt;
   }
 
@@ -132,13 +139,13 @@ body {
   }
 
  .lead {
-     color: #555555;
+     color: white;
  }
 
  a{
-     color: #555555;
+     color: white;
      padding: 20px;
-     font-size: 10pt;
+     font-size: 16pt;
  }
 
  #showPicks {
@@ -150,7 +157,7 @@ body {
  }
 
  #makePicks {
-     color: #555555;
+     color: #050505;
      padding: 20px;
      margin: 25px;
      background-color: white;
@@ -176,9 +183,7 @@ body {
     padding: 20px;
 }
 
-.seasonStandingsHeader {
-    margin: 50px;
-}
+
 
 .picksHeaders h4{
     display: inline-block;
@@ -198,3 +203,18 @@ body {
      font-weight: bold;
      font-size: 40pt;
  }
+
+ .nav-item{
+     
+     border-radius: 5px;
+     
+     margin-right: 1px;
+     opacity: .8;
+ }
+ h5 {
+     margin-bottom: 20px !important;
+ }
+
+ .panel-heading + .list-group .list-group-item:first-child {
+    border-top-width: 1px !important; 
+}

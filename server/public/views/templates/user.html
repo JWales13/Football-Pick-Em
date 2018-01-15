@@ -10,10 +10,10 @@
 
 <div class="commishTools" ng-model="uc.userObject.is_Commissioner" ng-if="uc.userObject.is_Commissioner == true">
   <h4>Commissioner Tools</h4>
-  <button class="btn btn-default" ng-model="uc.userObject.is_Commissioner" ng-if="uc.userObject.is_Commissioner == true" ng-click="vm.populateDB(vm.matchupData.list.weeks)">Populate Matchups for Season</button>
+  <button class="btn btn-default" ng-hide="displayed || collapsed || view" ng-model="uc.userObject.is_Commissioner" ng-if="uc.userObject.is_Commissioner == true" ng-click="vm.populateDB(vm.matchupData.list.weeks)">Start A New Season</button>
 
 
-  <button class="btn btn-default" ng-hide="displayed" ng-model="collapsed" ng-click="collapsed=!collapsed">Toggle Spreads Menu</button>
+  <button class="btn btn-default" ng-hide="displayed || view" ng-model="collapsed" ng-click="collapsed=!collapsed">Toggle Spreads Menu</button>
 
   <div ng-show="collapsed">
     <select name="week" ng-model='vm.selectedWeek.week'>
@@ -36,7 +36,7 @@
       <option value='16'>--Week 16--</option>
       <option value='17'>--Week 17--</option>
     </select>
-    <button class="btn btn-default" ng-click="uc.getWeekMatchups(vm.selectedWeek)">Get Week's Matchups</button>
+    <button class="btn btn-default" ng-click="uc.getWeekMatchupsSpreads(vm.selectedWeek)">Get Week's Matchups</button>
 
     <input type="text" ng-model="vm.newSpread.id" placeholder="Matchup ID">
     <input type="text" ng-model="vm.newSpread.home_team_spread" placeholder="Spread for Home Team">
@@ -60,7 +60,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="game in uc.dbWeekMatchupData.list | orderBy: 'date' ">
+        <tr ng-repeat="game in uc.dbWeekMatchupDataSpreads.list | orderBy: 'date' ">
           <td>
             <p>{{game.id}}</p>
           </td>
@@ -76,7 +76,7 @@
   <!--end spread div-->
 
 
-  <button class="btn btn-default" ng-hide="collapsed" ng-model="displayed" ng-click="displayed=!displayed">Toggle Game Winners Menu</button>
+  <button class="btn btn-default" ng-hide="collapsed || view" ng-model="displayed" ng-click="displayed=!displayed">Toggle Game Winners Menu</button>
 
   <div ng-show="displayed">
     <select name="week" ng-model='vm.selectedWeek.week'>
@@ -99,16 +99,15 @@
       <option value='16'>--Week 16--</option>
       <option value='17'>--Week 17--</option>
     </select>
-    <button class="btn btn-default" ng-click="uc.calcWeekWinners(vm.selectedWeek)">calculate game winners for this week</button>
+    <button class="btn btn-default" ng-click="uc.calcWeekWinners(vm.selectedWeek)">Calculate Game Winners For This Week</button>
 
 
   </div>
   <!--end winners div-->
 
-
+  <button class="btn btn-default" ng-hide="displayed || collapsed" ng-model="view" ng-click="view=!view; uc.getUsers()">Toggle Users Menu</button>
 
   <div class="usersMenu">
-    <button class="btn btn-default" ng-hide="displayed || collapsed" ng-model="view" ng-click="view=!view; uc.getUsers()">Users Menu</button>
     <div ng-show="view">
       <table>
         <thead>
@@ -138,6 +137,9 @@
 
 </div>
 <!--end commissioner tools-->
+
+
+
 <div class= "standingsTables">
 <div class="seasonStandings">
   <h4 class="seasonStandingsHeader">Season Standings</h4>
@@ -166,7 +168,7 @@
 </div>
 
 <div class="weekStandings" ng-if="clicked">
-    <h4 class="seasonStandingsHeader">Standings for Selected Week</h4>
+    <h4 class="seasonStandingsHeader">Points for the Week</h4>
     <table class="standings">
       <thead>
         <tr>
@@ -194,7 +196,7 @@
 
 <div class="playerPicks">
     <h4>See Everyone's Picks for the week</h4>
-  <select name="week" ng-model='vm.selectedWeek.week' class="custom-select mr-sm-2" ng-change="clicked=!clicked;uc.getWeekMatchupsPicks(vm.selectedWeek); uc.getWeekStandings(vm.selectedWeek); ">
+  <select name="week" ng-model='vm.selectedWeek.week' class="custom-select mr-sm-2" ng-change="clicked=true; uc.getWeekMatchupsPicks(vm.selectedWeek); uc.getWeekStandings(vm.selectedWeek);">
     <option value="">--Select Week--</option>
     <option value='1'>--Week 1--</option>
     <option value='2'>--Week 2--</option>
