@@ -12,45 +12,8 @@ myApp.service('MatchupService', function ($http, $location) {
     vm.usersData = { list: [] };
     vm.dbWeekStandingsData = { list: [] };
     vm.dbWeekMatchupDataSpreads = { list: [] };
+    vm.players = [];
 
-
-
-
-
-    vm.players = [
-        {
-            userID: 1,
-            userName: 'Joe',
-            pointTotal: 0,
-            pointTotalWeek: 0
-        },
-        {
-            userID: 2,
-            userName: 'Nathan',
-            pointTotal: 0,
-            pointTotalWeek: 0
-        },
-        {
-            userID: 3,
-            userName: 'Jim',
-            pointTotal: 0,
-            pointTotalWeek: 0
-        },
-        {
-            userID: 4,
-            userName: 'Scott',
-            pointTotal: 0,
-            pointTotalWeek: 0
-        },
-        {
-            userID: 5,
-            userName: 'Laura',
-            pointTotal: 0,
-            pointTotalWeek: 0
-        },
-     
-
-    ];
 
 
 
@@ -135,6 +98,7 @@ myApp.service('MatchupService', function ($http, $location) {
             vm.newSpread.id = '';
             vm.newSpread.home_team_spread = '';
         });
+        vm.getWeekMatchupsSpreads(selectedWeek);
     };//end addSpread  
 
 
@@ -206,7 +170,9 @@ myApp.service('MatchupService', function ($http, $location) {
                     })
                 }//end else
             }) //end for each winners  
+            vm.getWeekStandings(selectedWeek);
         });//end .then for calcWinners
+        
     };//end calc winners
 
     vm.seasonStandings = function () {
@@ -227,6 +193,17 @@ myApp.service('MatchupService', function ($http, $location) {
     vm.standingsFunction = function () {
         var right = 0;
         var wrong = 0;
+        var userIds = vm.standingsData.list[0].id;
+        var userNames = vm.standingsData.list[0].username;
+
+        for(var i = 0; i < userIds.length; i++) {
+            vm.players.push({
+                userID: userIds[i],
+                userName: userNames[i],
+                pointTotal: 0,
+                pointTotalWeek: 0,
+            })
+        };
         for (var i = 0; i < vm.standingsData.list.length; i++) {
 
             var users = vm.standingsData.list[i].id;
@@ -260,7 +237,7 @@ myApp.service('MatchupService', function ($http, $location) {
             var wrong = 0;
 
         }//end first for loop
-
+        console.log('players:', vm.players)
     }//end standings function
 
 
@@ -347,6 +324,9 @@ myApp.service('MatchupService', function ($http, $location) {
     vm.weekStandingsFunction = function () {
         var right = 0;
         var wrong = 0;
+    
+
+
         for (var i = 0; i < vm.dbWeekStandingsData.list.length; i++) {
 
             var users = vm.dbWeekStandingsData.list[i].id;
@@ -380,7 +360,7 @@ myApp.service('MatchupService', function ($http, $location) {
             var wrong = 0;
 
         }//end first for loop
-
+        console.log('players:', vm.players);
     }//end standings function
 
 

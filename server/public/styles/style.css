@@ -104,7 +104,7 @@ html {
 
   #Welcome{
       display: inline;
-      color: white;
+      color: #555555;
       font-size: 20pt;
   }
 
@@ -139,11 +139,11 @@ body {
   }
 
  .lead {
-     color: white;
+     color: #555555;
  }
 
  a{
-     color: white;
+     color: #555555;
      padding: 20px;
      font-size: 16pt;
  }
@@ -205,11 +205,9 @@ body {
  }
 
  .nav-item{
-     
-     border-radius: 5px;
-     
+     border-radius: 5px; 
      margin-right: 1px;
-     opacity: .8;
+     opacity: .95;
  }
  h5 {
      margin-bottom: 20px !important;
@@ -217,4 +215,20 @@ body {
 
  .panel-heading + .list-group .list-group-item:first-child {
     border-top-width: 1px !important; 
+}
+#navBar {
+    background-color: white;
+    opacity: .8;
+}
+.hello-goodbye {
+    float:right;
+   padding-top: 10px;
+    
+}
+.hello-goodbye h1 {
+    padding-right: 25px;
+}
+
+.loginDiv {
+    color: #555555;
 }
