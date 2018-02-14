@@ -2,12 +2,14 @@
 
 An accessible fantasy football game even casual fans can enjoy.  Users pick against the spread for every game during the season in a league of friends / family.
 
+[Deployed Version](https://football-pick-em.herokuapp.com/#/home)
+
 ## Built With
 
-  -AngularJS
-  -PostgreSQL
-  -Node.JS
-  -Express
+  - AngularJS
+  - PostgreSQL
+  - Node.JS
+  - Express
 
 
 ## Getting Started
