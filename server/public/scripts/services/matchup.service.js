@@ -18,6 +18,7 @@ myApp.service('MatchupService', function ($http, $location) {
 
 
     vm.getMatchups = function () {
+        console.log('in getMatchups');
         $http({
             method: 'GET',
             url: '/matchups',
